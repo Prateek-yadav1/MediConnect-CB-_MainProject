@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Doctor</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> navbar}}
+    <form action="/doctor/add" method="POST" class="product-form">
+        <h2>Add New Doctor</h2>
+        <div class="form-group">
+            <label for="name">Doctor Name</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="specialty">Specialty</label>
+            <input type="text" name="specialty" id="specialty" required>
+        </div>
+        <div class="form-group">
+            <label for="experience">Experience (e.g. 10 years)</label>
+            <input type="text" name="experience" id="experience" required>
+        </div>
+        <div class="form-group">
+            <label for="image">Image URL</label>
+            <input type="url" name="image" id="image" required>
+        </div>
+        <div class="form-group">
+            <label for="about">About</label>
+            <textarea name="about" id="about" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="specializations">Specializations (comma separated)</label>
+            <input type="text" name="specializations" id="specializations">
+        </div>
+        <button type="submit" class="submit-btn">Add Doctor</button>
+    </form>
+</body>
+</html>

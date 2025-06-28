@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{#if msg}}
+  <div>
+    <p>{{msg}}</p>
+  </div>
+  {{/if}}
+  
+    <h1>Welcome to Login page</h1>
+
+    <form action="/login" method="POST">
+    <input type="text" name="username" placeholder="Enter Username" required><br>
+    <input type="text" name="password" placeholder="Enter Password" required><br>
+    <button type="submit">Login</button>
+      </form>
+      <br>
+      <div>
+        New User?
+        <button>
+            <a href="/signup">Signup</a>
+        </button>
+      </div>
+   <div>
+  <a href="/login/google" class="google-btn">
+    <img class="google-icon" src="https://icon2.cleanpng.com/20240216/ikb/transparent-google-logo-google-logo-with-multicolored-g-and-1710875587855.webp" alt="Google logo">
+    Continue with Google
+  </a>
+</div>
+</body>
+</html>

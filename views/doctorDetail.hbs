@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{doctor.name}} | MediConnect</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> navbar}}
+    <main class="doctor-detail-main">
+        <section class="doctor-header">
+            <img class="doctor-avatar" src="{{doctor.image}}" alt="{{doctor.name}}">
+            <div class="doctor-header-info">
+                <h2>{{doctor.name}}</h2>
+                <div class="doctor-specialty">{{doctor.specialty}}</div>
+                <div class="doctor-exp">{{doctor.experience}}</div>
+            </div>
+        </section>
+        <section class="doctor-about">
+            <h3>About</h3>
+            <p>{{doctor.about}}</p>
+        </section>
+        <section class="doctor-specializations">
+            <h3>Specializations</h3>
+            <div class="specialization-chips">
+                {{#each doctor.specializations}}
+                  <span>{{this}}</span>
+                {{/each}}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
