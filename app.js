@@ -24,7 +24,7 @@ app.use(session({
     secret:process.env.SECRET_KEY,
     resave:false,
     saveUninitialized:true,
-    cookie:{secure: true},
+    cookie:{secure: false},
     store:Mongostore.create({
         mongoUrl:process.env.DB_PATH
     })
@@ -35,12 +35,28 @@ app.use(flash());
 app.get('/',(req,res)=>{
     res.redirect('/login');
 })
+app.get('/test-user', (req, res) => {
+  res.json(req.user); // Should show the logged-in user object
+});
+
 
 // Home page: fetch and show doctors
 app.get('/home', async (req, res) => {
-  const doctors = await Doctor.find({});
-  res.render('home', { doctors });
+  const q = req.query.q;
+  let doctors;
+  if (q) {
+    doctors = await Doctor.find({
+      $or: [
+        { name: { $regex: q, $options: 'i' } },
+        { specialty: { $regex: q, $options: 'i' } }
+      ]
+    });
+  } else {
+    doctors = await Doctor.find({});
+  }
+  res.render('home', { doctors, q });
 });
+
 
 // Add doctor routes
 app.use('/doctor', doctorRoutes);
@@ -56,13 +72,29 @@ app.get('/logout', function(req, res, next) {
   });
 });
 
+// Register 'times' helper
+hbs.registerHelper('times', function(n, block) {
+  let accum = '';
+  for(let i = 0; i < n; ++i)
+    accum += block.fn(i);
+  return accum;
+});
 
+// Register 'subtract' helper if you use it
+hbs.registerHelper('subtract', function(a, b) {
+  return a - b;
+});
 mongoose.connect(process.env.DB_PATH)
 .then(()=>{
 
 app.listen(PORT,()=>{
     console.log('http://localhost:'+PORT);
 })
+
 })
+
+
+ 
+
 
 

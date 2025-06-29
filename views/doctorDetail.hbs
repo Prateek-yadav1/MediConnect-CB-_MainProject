@@ -13,7 +13,7 @@
             <div class="doctor-header-info">
                 <h2>{{doctor.name}}</h2>
                 <div class="doctor-specialty">{{doctor.specialty}}</div>
-                <div class="doctor-exp">{{doctor.experience}}</div>
+                <div class="doctor-exp">{{doctor.experience}} yrs of experience</div>
             </div>
         </section>
         <section class="doctor-about">
@@ -28,6 +28,35 @@
                 {{/each}}
             </div>
         </section>
+        <section class="doctor-reviews">
+    <h3>Patient Reviews</h3>
+    <form action="/doctor/{{doctor._id}}/review" method="POST" class="review-form">
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating" required>
+            <option value="">Select</option>
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Good</option>
+            <option value="3">3 - Average</option>
+            <option value="2">2 - Poor</option>
+            <option value="1">1 - Terrible</option>
+        </select>
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment" rows="2" required></textarea>
+        <button type="submit" class="submit-btn">Submit Review</button>
+    </form>
+    <div class="review-list">
+        {{#each doctor.reviews}}
+            <div class="review">
+                <div class="review-user">{{this.username}} <span class="review-date">{{this.createdAt}}</span></div>
+                <div class="review-stars">
+                    {{#times this.rating}}★{{/times}}
+                    {{#times (subtract 5 this.rating)}}☆{{/times}}
+                </div>
+                <div class="review-text">{{this.comment}}</div>
+            </div>
+        {{/each}}
+    </div>
+</section>
     </main>
 </body>
 </html>

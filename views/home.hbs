@@ -11,10 +11,11 @@
     {{> navbar}}
 
     <main class="doctor-main">
-        <search class="search-bar">
-            <input type="text" placeholder="Search for doctors, specialties, or conditions" /><br>
-            <button type="submit"><span>Search</span></button>
-            </search>
+      
+        <form class="search-bar" action="/home" method="GET">
+    <input type="text" name="q" placeholder="Search for doctors, specialties, or conditions" value="{{q}}">
+    <button type="submit"><span>Search</span></button>
+</form>
         
         <div class="filter-chips">
             <button>Specialty</button>
