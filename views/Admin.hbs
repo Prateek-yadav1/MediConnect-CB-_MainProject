@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | MediConnect</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> adminNavbar}}
+    <main class="admin-main">
+        <h2>Welcome, Admin</h2>
+        <div class="admin-actions">
+            <a href="/doctor/add" class="submit-btn">Add New Doctor</a>
+            <a href="/admin/doctors" class="submit-btn">View All Doctors</a>
+        </div>
+        <section class="admin-section">
+            <h3>Quick Stats</h3>
+            <ul>
+                <li>Total Doctors: {{stats.doctorCount}}</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

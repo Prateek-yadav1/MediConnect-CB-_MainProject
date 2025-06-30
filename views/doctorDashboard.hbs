@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="doctor-dashboard-bg">
+    {{> doctorNavbar}}
+    <div class="doctor-dashboard-container">
+        <aside class="doctor-sidebar">
+            <div class="doctor-profile">
+                <img src="{{#if doctor.image}}{{doctor.image}}{{else}}/default-doctor.png{{/if}}" alt="Doctor Avatar" class="doctor-avatar-sidebar">
+                <div class="doctor-name-sidebar">Dr. {{doctor.name}}</div>
+                <div class="doctor-specialty-sidebar">{{doctor.specialty}}</div>
+            </div>
+            <nav class="doctor-nav">
+                <a href="#" class="active"><span>🏠</span> Dashboard</a>
+                <a href="#"><span>📅</span> Appointments</a>
+                <a href="#"><span>👥</span> Patients</a>
+                <a href="#"><span>💬</span> Messages</a>
+                <a href="#"><span>⚙️</span> Settings</a>
+            </nav>
+        </aside>
+        <main class="doctor-main-content">
+            <div class="doctor-dashboard-header">
+                <h1>Appointments</h1>
+                <button class="new-appointment-btn">New</button>
+            </div>
+            <div class="doctor-tabs">
+                <a href="#" class="tab-active">Upcoming</a>
+                <a href="#">Past</a>
+                <a href="#">Cancelled</a>
+            </div>
+            <div class="appointments-section">
+                <h3>Today</h3>
+                <ul class="appointments-list">
+                    {{#each appointments}}
+                        {{#if (isToday this.date) }}
+                        <li class="appointment-item">
+                            <img src="{{#if this.patient.image}}{{this.patient.image}}{{else}}/default-patient.png{{/if}}" alt="Patient" class="patient-avatar">
+                            <div>
+                                <div class="patient-name">Patient: {{this.patient.username}}</div>
+                                <div class="appointment-time">{{this.time}}</div>
+                            </div>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                </ul>
+                <h3>Tomorrow</h3>
+                <ul class="appointments-list">
+                    {{#each appointments}}
+                        {{#if (isTomorrow this.date) }}
+                        <li class="appointment-item">
+                            <img src="{{#if this.patient.image}}{{this.patient.image}}{{else}}/default-patient.png{{/if}}" alt="Patient" class="patient-avatar">
+                            <div>
+                                <div class="patient-name">Patient: {{this.patient.name}}</div>
+                                <div class="appointment-time">{{this.time}}</div>
+                            </div>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{doctor.name}} | Admin View</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> adminNavbar}}
+    <main>
+        <div class="doctor-detail-admin">
+            <h2>Doctor Details</h2>
+            
+            <img src="{{doctor.image}}" alt="{{doctor.name}}">
+            <p><strong>Name:</strong> {{doctor.name}}</p>
+            <p><strong>Specialty:</strong> {{doctor.specialty}}</p>
+            <p><strong>Experience:</strong> {{doctor.experience}} yrs</p>
+            <p><strong>About:</strong> {{doctor.about}}</p>
+            <p><strong>Specializations:</strong>
+                <span class="specializations-list">
+                {{#each doctor.specializations}}<span>{{this}}</span>{{/each}}
+                </span>
+            </p>
+            <a href="/admin/doctors/{{doctor._id}}/edit" class="submit-btn" style="background:#357ab8;margin-bottom:12px;">Edit Doctor Info</a>
+            <h3>Reviews</h3>
+           <ul>
+  {{#each doctor.reviews}}
+    <li>
+      <strong>{{this.username}}</strong>: {{this.comment}} ({{this.rating}} stars)
+      <form action="/admin/doctors/{{../doctor._id}}/reviews/{{this._id}}/delete" method="POST" style="display:inline;" onsubmit="return confirm('Remove this review?');">
+        <button type="submit" class="submit-btn" style="background:#e74c3c;margin-left:8px;">Remove</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
+        </div>
+    </main>
+</body>
+</html>
