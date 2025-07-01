@@ -9,6 +9,8 @@ const Mongostore=require('connect-mongo');
 const doctorRoutes = require('./routes/doctor');
 const Doctor = require('./models/doctor');
 const session=require('express-session')//without this, passport will not be able to work
+const adminRoutes = require('./routes/admin');
+
 
 const hbs = require('hbs');
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
@@ -24,7 +26,9 @@ app.use(session({
     secret:process.env.SECRET_KEY,
     resave:false,
     saveUninitialized:true,
-    cookie:{secure: false},
+    cookie:{secure: false,
+      maxAge: 1000 * 60 * 60 * 2
+    },
     store:Mongostore.create({
         mongoUrl:process.env.DB_PATH
     })
@@ -35,12 +39,8 @@ app.use(flash());
 app.get('/',(req,res)=>{
     res.redirect('/login');
 })
-app.get('/test-user', (req, res) => {
-  res.json(req.user); // Should show the logged-in user object
-});
 
-
-// Home page: fetch and show doctors
+//Home page-fetch and show doctors
 app.get('/home', async (req, res) => {
   const q = req.query.q;
   let doctors;
@@ -58,12 +58,14 @@ app.get('/home', async (req, res) => {
 });
 
 
-// Add doctor routes
+//Add doctor routes
 app.use('/doctor', doctorRoutes);
 
 app.use('/signup',require('./routes/signup'))
 app.use('/login',require('./routes/login'))
 app.use('/home',require('./routes/home'))
+app.use('/admin', adminRoutes);
+
 
 app.get('/logout', function(req, res, next) {
   req.logout(function(err) {
@@ -84,9 +86,9 @@ hbs.registerHelper('times', function(n, block) {
 hbs.registerHelper('subtract', function(a, b) {
   return a - b;
 });
+
 mongoose.connect(process.env.DB_PATH)
 .then(()=>{
-
 app.listen(PORT,()=>{
     console.log('http://localhost:'+PORT);
 })

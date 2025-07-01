@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Doctor | Admin</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> adminNavbar}}
+    <main>
+        <div class="doctor-detail-admin">
+            <h2>Edit Doctor Info</h2>
+            <form action="/admin/doctors/{{doctor._id}}/edit" method="POST">
+                <label>Name:</label>
+                <input type="text" name="name" value="{{doctor.name}}" required>
+                <label>Specialty:</label>
+                <input type="text" name="specialty" value="{{doctor.specialty}}" required>
+                <label>Experience (years):</label>
+                <input type="number" name="experience" value="{{doctor.experience}}" required>
+                <label>Image URL:</label>
+                <input type="text" name="image" value="{{doctor.image}}">
+                <label>About:</label>
+                <textarea name="about" required>{{doctor.about}}</textarea>
+                <label>Specializations (comma separated):</label>
+                <input type="text" name="specializations" value="{{doctor.specializations}}">
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

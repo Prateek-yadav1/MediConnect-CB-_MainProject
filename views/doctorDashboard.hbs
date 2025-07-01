@@ -33,32 +33,22 @@
                 <a href="#">Cancelled</a>
             </div>
             <div class="appointments-section">
-                <h3>Today</h3>
                 <ul class="appointments-list">
                     {{#each appointments}}
-                        {{#if (isToday this.date) }}
+                       
                         <li class="appointment-item">
                             <img src="{{#if this.patient.image}}{{this.patient.image}}{{else}}/default-patient.png{{/if}}" alt="Patient" class="patient-avatar">
                             <div>
-                                <div class="patient-name">Patient: {{this.patient.username}}</div>
-                                <div class="appointment-time">{{this.time}}</div>
+                                
+                                <div class="patient-name">
+  Patient Name: {{#if this.patient.name}}{{this.patient.name}}{{else}}{{this.patient.username}}{{/if}}
+</div>
+                                <div class="appointment-time">Appointment Time: {{this.time}}</div>
+                                <div class="appointment-reason">Appointment Reason: {{this.reason}}</div>
+
                             </div>
                         </li>
-                        {{/if}}
-                    {{/each}}
-                </ul>
-                <h3>Tomorrow</h3>
-                <ul class="appointments-list">
-                    {{#each appointments}}
-                        {{#if (isTomorrow this.date) }}
-                        <li class="appointment-item">
-                            <img src="{{#if this.patient.image}}{{this.patient.image}}{{else}}/default-patient.png{{/if}}" alt="Patient" class="patient-avatar">
-                            <div>
-                                <div class="patient-name">Patient: {{this.patient.name}}</div>
-                                <div class="appointment-time">{{this.time}}</div>
-                            </div>
-                        </li>
-                        {{/if}}
+                       
                     {{/each}}
                 </ul>
             </div>

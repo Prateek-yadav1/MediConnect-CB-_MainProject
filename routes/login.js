@@ -10,7 +10,13 @@ router.get('/',loginController.getLogin)
 
 router.post('/',mypassport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/home');
+    if (req.user.role === 'doctor') {
+      res.redirect('/doctor/dashboard'); // Doctor's dashboard
+    } else if (req.user.role === 'admin') {
+      res.redirect('/admin/dashboard'); // Admin dashboard
+    } else {
+      res.redirect('/home'); 
+    }
   })
 router.get('/google',
   mypassport.authenticate('google', { scope: ['home'] }));

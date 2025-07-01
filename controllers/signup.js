@@ -9,12 +9,12 @@ module.exports.getSignup = (req,res)=>{
 }
 
 module.exports.postSignup = async (req,res,next)=>{
-    const {username,password}=req.body;
+    const {username,password,role}=req.body;
 try{
     let user= await Users.findOne({username})
     if(!user){
         try{
-            user= await Users.create({username,password});
+            user= await Users.create({username,password,role});
              req.session.username=username;
 
 req.flash('msg','You have successfully signed up');

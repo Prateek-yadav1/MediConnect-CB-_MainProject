@@ -8,14 +8,15 @@
 <body>
     {{> navbar}}
     <main class="doctor-detail-main">
-        <section class="doctor-header">
-            <img class="doctor-avatar" src="{{doctor.image}}" alt="{{doctor.name}}">
-            <div class="doctor-header-info">
-                <h2>{{doctor.name}}</h2>
-                <div class="doctor-specialty">{{doctor.specialty}}</div>
-                <div class="doctor-exp">{{doctor.experience}} yrs of experience</div>
-            </div>
-        </section>
+       <section class="doctor-header">
+    <img class="doctor-avatar" src="{{doctor.image}}" alt="{{doctor.name}}">
+    <div class="doctor-header-info">
+        <h2>{{doctor.name}}</h2>
+        <div class="doctor-specialty">{{doctor.specialty}}</div>
+        <div class="doctor-exp">{{doctor.experience}} yrs of experience</div>
+    </div>
+    <a href="/doctor/{{doctor._id}}/book" class="book-btn">Book Appointment</a>
+</section>
         <section class="doctor-about">
             <h3>About</h3>
             <p>{{doctor.about}}</p>

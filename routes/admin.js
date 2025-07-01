@@ -20,25 +20,20 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   });
 });
 
-// (Optional) View all doctors
+//View all doctors
 router.get('/doctors', isAdmin, async (req, res) => {
   const doctors = await Doctor.find();
   res.render('adminDoctors', { doctors });
 });
 
-// (Optional) Manage reviews page
-
-router.get('/doctors', isAdmin, async (req, res) => {
-  const doctors = await Doctor.find();
-  res.render('adminDoctor', { doctors });
-});
-
 // Doctor detail for admin
 router.get('/doctors/:id', isAdmin, async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
   res.render('adminDoctorDetail', { doctor });
 });
+
 // Show edit form
 router.get('/doctors/:id/edit', isAdmin, async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
@@ -59,10 +54,12 @@ router.post('/doctors/:id/edit', isAdmin, async (req, res) => {
   });
   res.redirect(`/admin/doctors/${req.params.id}`);
 });
+
 router.post('/doctors/:id/delete', isAdmin, async (req, res) => {
   await Doctor.findByIdAndDelete(req.params.id);
   res.redirect('/admin/doctors');
 });
+
 router.post('/doctors/:doctorId/reviews/:reviewId/delete', isAdmin, async (req, res) => {
   const { doctorId, reviewId } = req.params;
   await Doctor.findByIdAndUpdate(

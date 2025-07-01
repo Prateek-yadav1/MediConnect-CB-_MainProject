@@ -15,7 +15,6 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      // Plain text password check (for demo; use bcrypt in production)
       if (user.password !== password) {
         return done(null, false, { message: 'Incorrect password.' });
       }
