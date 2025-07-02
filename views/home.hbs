@@ -9,9 +9,38 @@
 </head>
 <body>
     {{> navbar}}
+<main class="landing-main">
+        <section class="landing-hero">
+            <div class="hero-content">
+              <h1>Find the Right Doctor<br>Book Appointments Easily</h1>
+<p class="hero-desc">
+    MediConnect helps you connect with trusted doctors, manage your health, and book appointments—all in one place.<br>
+    Your healthcare journey made simple, secure, and convenient.
+</p>
 
-    <main class="doctor-main">
-      
+                <div class="hero-actions">
+                    <a href="#doctors" class="hero-btn-primary">Start Searching For Doctors...</a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <span class="stat-number">50k+</span>
+                        <span class="stat-label">Happy patient</span>
+                    </div>
+                    <div>
+                        <span class="stat-number">350+</span>
+                        <span class="stat-label">Specialist Doctor</span>
+                    </div>
+                    <div>
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Our Success</span>
+                    </div>
+                </div>
+            </div>
+                
+        </section>
+    </main>
+    <main class="doctor-main" id="doctors">
+  
         <form class="search-bar" action="/home" method="GET">
     <input type="text" name="q" placeholder="Search for doctors, specialties, or conditions" value="{{q}}">
     <button type="submit"><span>Search</span></button>
@@ -24,7 +53,7 @@
             <button>Availability</button>
         </div>
         
-         <h2 class="section-title">Doctors near you</h2>
+         <h2 class="section-title">DOCTORS </h2>
 <div class="doctor-list">
   {{#each doctors}}
     <a href="/doctor/{{this._id}}" class="doctor-card-link">
@@ -39,5 +68,8 @@
   {{/each}}
 </div>
     </main>
+    <footer class="main-footer">
+  <p>&copy; 2025 MediConnect. All rights reserved.</p>
+</footer>
 </body>
 </html>

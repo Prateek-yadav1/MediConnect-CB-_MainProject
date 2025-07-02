@@ -48,12 +48,14 @@
     <div class="review-list">
         {{#each doctor.reviews}}
             <div class="review">
-                <div class="review-user">{{this.username}} <span class="review-date">{{this.createdAt}}</span></div>
+                <div class="review-user">{{this.username}} <br>
+                    <span class="review-date">{{this.formattedDate}}</span>
+                    </div>
                 <div class="review-stars">
                     {{#times this.rating}}★{{/times}}
                     {{#times (subtract 5 this.rating)}}☆{{/times}}
                 </div>
-                <div class="review-text">{{this.comment}}</div>
+                <div class="review-text"><i>"{{this.comment}}"</i></div>
             </div>
         {{/each}}
     </div>

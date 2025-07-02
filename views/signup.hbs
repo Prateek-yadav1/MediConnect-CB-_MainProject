@@ -12,10 +12,14 @@
     <p>{{msg}}</p>
   </div>
   {{/if}}
-    <h1>Welcome to signup page</h1>
+    <h1>Welcome to MediConnect</h1>
     <form action="/signup" method="POST">
+    <h3>Create User</h3>
+    <label for="username">Username:</label>
     <input type="text" name="username" placeholder="Enter Username" required><br>
-    <input type="text" name="password" placeholder="Enter Password" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" placeholder="Enter Password" required><br>
+    <label for="role">Are you a:</label>
       <label>
     <input type="radio" name="role" value="patient" required> Patient
   </label>

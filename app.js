@@ -12,6 +12,7 @@ const session=require('express-session')//without this, passport will not be abl
 const adminRoutes = require('./routes/admin');
 
 
+
 const hbs = require('hbs');
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
@@ -36,6 +37,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
 app.get('/',(req,res)=>{
     res.redirect('/login');
 })

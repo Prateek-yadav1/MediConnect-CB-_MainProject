@@ -4,8 +4,8 @@ const router=express.Router();
 const signupController=require('../controllers/signup')
 
 
-router.get('/',signupController.getSignup)
-router.post('/',signupController.postSignup)
+router.get('/signup',signupController.getSignup)
+router.post('/signup',signupController.postSignup)
 
 
 

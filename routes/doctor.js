@@ -4,8 +4,11 @@ const doctorController = require('../controllers/doctor');
 const Doctor = require('../models/doctor');
 const User = require('../models/user');
 const Appointment = require('../models/appointment');
+const moment = require('moment');
 
 router.get('/', doctorController.getDoctors);
+
+
 
 
 
@@ -22,6 +25,7 @@ router.post('/:id/review', async (req, res) => {
   await doctor.save();
   res.redirect(`/doctor/${doctor._id}`);
 });
+
 
 // Show the book appointment form
 router.get('/:id/book', async (req, res) => {
@@ -93,6 +97,16 @@ router.post('/add', isAdmin, async (req, res) => {
 router.get('/:id', async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) return res.status(404).send('Doctor not found');
+   // Format review dates
+  if (doctor.reviews && doctor.reviews.length) {
+    doctor.reviews.forEach(review => {
+      if (review.createdAt) {
+        review.formattedDate = moment(review.createdAt).format('DD MMMM YYYY, h:mm A');
+      } else {
+        review.formattedDate = '';
+      }
+    });
+  }
   res.render('doctorDetail', { doctor });
 });
 
