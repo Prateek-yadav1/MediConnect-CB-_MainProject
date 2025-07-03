@@ -10,10 +10,12 @@ const doctorRoutes = require('./routes/doctor');
 const Doctor = require('./models/doctor');
 const session=require('express-session')//without this, passport will not be able to work
 const adminRoutes = require('./routes/admin');
+const profileRoutes = require('./routes/profile');
 
 
 
 const hbs = require('hbs');
+hbs.registerHelper('eq', (a, b) => a === b);
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 app.set('view engine','hbs');
@@ -67,7 +69,7 @@ app.use('/signup',require('./routes/signup'))
 app.use('/login',require('./routes/login'))
 app.use('/home',require('./routes/home'))
 app.use('/admin', adminRoutes);
-
+app.use('/profile', profileRoutes);
 
 app.get('/logout', function(req, res, next) {
   req.logout(function(err) {

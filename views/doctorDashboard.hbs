@@ -15,42 +15,53 @@
                 <div class="doctor-specialty-sidebar">{{doctor.specialty}}</div>
             </div>
             <nav class="doctor-nav">
-                <a href="#" class="active"><span>🏠</span> Dashboard</a>
-                <a href="#"><span>📅</span> Appointments</a>
-                <a href="#"><span>👥</span> Patients</a>
+                <a href="/doctor/dashboard" class="active"><span>🏠</span> Dashboard</a>
+                <a href="/doctor/dashboard"><span>📅</span> Appointments</a>
+                {{!-- <a href="#"><span>👥</span> Patients</a>
                 <a href="#"><span>💬</span> Messages</a>
-                <a href="#"><span>⚙️</span> Settings</a>
+                <a href="#"><span>⚙️</span> Settings</a> --}}
             </nav>
         </aside>
         <main class="doctor-main-content">
             <div class="doctor-dashboard-header">
                 <h1>Appointments</h1>
-                <button class="new-appointment-btn">New</button>
             </div>
-            <div class="doctor-tabs">
-                <a href="#" class="tab-active">Upcoming</a>
-                <a href="#">Past</a>
-                <a href="#">Cancelled</a>
-            </div>
-            <div class="appointments-section">
-                <ul class="appointments-list">
-                    {{#each appointments}}
-                       
-                        <li class="appointment-item">
-                            <img src="{{#if this.patient.image}}{{this.patient.image}}{{else}}/default-patient.png{{/if}}" alt="Patient" class="patient-avatar">
-                            <div>
-                                
-                                <div class="patient-name">
-  Patient Name: {{#if this.patient.name}}{{this.patient.name}}{{else}}{{this.patient.username}}{{/if}}
+           <div class="doctor-tabs">
+    <a href="/doctor/dashboard?tab=upcoming" class="{{#if (eq tab 'upcoming')}}tab-active{{/if}}">Upcoming</a>
+    <a href="/doctor/dashboard?tab=past" class="{{#if (eq tab 'past')}}tab-active{{/if}}">Past</a>
+    <a href="/doctor/dashboard?tab=cancelled" class="{{#if (eq tab 'cancelled')}}tab-active{{/if}}">Cancelled</a>
+    <a href="/doctor/dashboard?tab=pending" class="{{#if (eq tab 'pending')}}tab-active{{/if}}">Pending</a>
 </div>
-                                <div class="appointment-time">Appointment Time: {{this.time}}</div>
-                                <div class="appointment-reason">Appointment Reason: {{this.reason}}</div>
+            <div class="appointments-section">
+            <ul class="appointments-list">
+{{#each appointments}}
+    <li class="appointment-item">
+        <img src="{{#if this.patient.image}}{{this.patient.image}}{{else}}/default-patient.png{{/if}}" alt="Patient" class="patient-avatar">
+        <div class="appointment-details">
+            <div class="patient-name">
+                Patient Name: {{#if this.patient.name}}{{this.patient.name}}{{else}}{{this.patient.username}}{{/if}}
+            </div>
+            <div class="appointment-time">Appointment Time: {{this.time}}</div>
+                        <div class="appointment-time">Appointment Date: {{this.date}}</div>
 
-                            </div>
-                        </li>
-                       
-                    {{/each}}
-                </ul>
+            <div class="appointment-reason">Appointment Reason: {{this.reason}}</div>
+            <div class="appointment-status">
+                Status: <strong>{{this.status}}</strong>
+            </div>
+        </div>
+        {{#if (eq this.status "pending")}}
+        <div class="appointment-actions">
+            <form action="/doctor/appointment/{{this._id}}/accept" method="POST">
+                <button type="submit" class="submit-btn">Accept</button>
+            </form>
+            <form action="/doctor/appointment/{{this._id}}/reject" method="POST">
+                <button type="submit" class="submit-btn" style="background:#e57373;">Reject</button>
+            </form>
+        </div>
+        {{/if}}
+    </li>
+{{/each}}
+</ul>
             </div>
         </main>
     </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | MediConnect</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> navbar}}
+    <main class="profile-main">
+        <section class="profile-header">
+            <h2>{{user.username}}'s Profile</h2>
+        </section>
+        <section class="profile-appointments">
+            <h3>Previous Appointments</h3>
+            {{#if appointments.length}}
+            
+           <ul class="appointment-list">
+    {{#each appointments}}
+    <li>
+        <strong>Doctor:</strong> {{this.doctor.name}}<br>
+        <strong>Date:</strong> {{this.date}}<br>
+        <strong>Time:</strong> {{this.time}}<br>
+        <strong>Reason:</strong> {{this.reason}}<br>
+        <strong>Status:</strong>
+        {{#if (eq this.status "pending")}}
+            <span style="color:#e57300;">Pending</span>
+        {{else if (eq this.status "accepted")}}
+            <span style="color:#388e3c;">Accepted</span>
+        {{else}}
+            <span style="color:#e53935;">Rejected</span>
+        {{/if}}
+    </li>
+    {{/each}}
+</ul>
+            {{else}}
+            <p>No previous appointments found.</p>
+            {{/if}}
+        </section>
+        <section class="profile-reports">
+            <h3>Medical Reports</h3>
+            {{#if reports.length}}
+            <ul class="report-list">
+                {{#each reports}}
+                <li>
+                    <strong>Title:</strong> {{this.title}}<br>
+                    <strong>Date:</strong> {{this.date}}<br>
+                    <a href="{{this.fileUrl}}" target="_blank">View Report</a>
+                </li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>No medical reports uploaded yet.</p>
+            {{/if}}
+        </section>
+    </main>
+</body>
+</html>

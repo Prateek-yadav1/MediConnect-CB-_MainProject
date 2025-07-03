@@ -10,9 +10,6 @@ router.get('/', doctorController.getDoctors);
 
 
 
-
-
-
 router.post('/:id/review', async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) return res.status(404).send('Doctor not found');
@@ -56,12 +53,8 @@ function isDoctor(req, res, next) {
 }
 
 // Doctor dashboard route
-router.get('/dashboard', isDoctor, async (req, res) => {
-  const doctor = await Doctor.findById(req.user.doctorProfile);
-  if (!doctor) return res.status(404).send('Doctor profile not found');
-  const appointments = await Appointment.find({ doctor: doctor._id }).populate('patient');
-  res.render('doctorDashboard', { doctor, appointments });
-});
+
+router.get('/dashboard', isDoctor, doctorController.doctorDashboard);
 
 function isAdmin(req, res, next) {
   if (req.user && req.user.role === 'admin') return next();
@@ -110,5 +103,16 @@ router.get('/:id', async (req, res) => {
   res.render('doctorDetail', { doctor });
 });
 
+// Accept appointment
+router.post('/appointment/:id/accept', isDoctor, async (req, res) => {
+    await Appointment.findByIdAndUpdate(req.params.id, { status: 'accepted' });
+    res.redirect('/doctor/dashboard');
+});
+
+// Reject appointment
+router.post('/appointment/:id/reject', isDoctor, async (req, res) => {
+    await Appointment.findByIdAndUpdate(req.params.id, { status: 'rejected' });
+    res.redirect('/doctor/dashboard');
+});
 
 module.exports = router;

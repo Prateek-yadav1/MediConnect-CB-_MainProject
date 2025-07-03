@@ -883,8 +883,9 @@ main tr:hover {
             color: #357ab8;
         }
 
-        //doctor dashboard
-        .doctor-dashboard-bg {
+//doctor dashboard
+/* Doctor Dashboard Layout */
+.doctor-dashboard-bg {
     background: #f7fafd;
     min-height: 100vh;
     margin: 0;
@@ -921,6 +922,11 @@ main tr:hover {
     font-weight: 600;
     font-size: 1.1rem;
     color: #1e3c72;
+}
+.doctor-specialty-sidebar {
+    color: #357ab8;
+    font-size: 1rem;
+    font-weight: 500;
 }
 .doctor-nav {
     width: 100%;
@@ -999,20 +1005,31 @@ main tr:hover {
     font-size: 1.15rem;
     font-weight: 700;
 }
+
+/* Appointments List */
 .appointments-list {
     list-style: none;
     padding: 0;
     margin: 0 0 18px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 .appointment-item {
     display: flex;
-    align-items: center;
-    gap: 18px;
+    align-items: flex-start;
+    justify-content: space-between;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 2px 8px rgba(30,60,114,0.06);
-    padding: 14px 18px;
-    margin-bottom: 12px;
+    padding: 18px 22px;
+    gap: 28px;
+    position: relative;
+    transition: box-shadow 0.18s, transform 0.12s;
+}
+.appointment-item:hover {
+    box-shadow: 0 6px 24px rgba(30,60,114,0.13);
+    transform: translateY(-2px) scale(1.01);
 }
 .patient-avatar {
     width: 48px;
@@ -1020,6 +1037,14 @@ main tr:hover {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #e6eaf0;
+    margin-right: 18px;
+    margin-top: 4px;
+}
+.appointment-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 .patient-name {
     font-weight: 600;
@@ -1031,6 +1056,57 @@ main tr:hover {
     font-size: 0.98rem;
     margin-top: 2px;
 }
+.appointment-reason {
+    color: #285185;
+    font-size: 0.98rem;
+}
+.appointment-status {
+    margin-top: 4px;
+    font-size: 1rem;
+}
+.appointment-status strong {
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #357ab8;
+}
+
+/* Right-aligned button group */
+.appointment-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+    min-width: 120px;
+    margin-left: 24px;
+    margin-top: 4px;
+}
+.appointment-item .submit-btn {
+    background: #357ab8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s;
+    box-shadow: 0 2px 8px rgba(30,60,114,0.06);
+    margin: 0 0 6px 0;
+}
+.appointment-item .submit-btn:last-child {
+    margin-bottom: 0;
+}
+.appointment-item .submit-btn[style*="background:#e57373"] {
+    background: #e57373 !important;
+}
+.appointment-item .submit-btn[style*="background:#e57373"]:hover {
+    background: #c62828 !important;
+}
+.appointment-item .submit-btn:hover {
+    background: #285185;
+}
+
+/* Responsive */
 @media (max-width: 900px) {
     .doctor-main-content {
         padding: 24px 8vw 24px 8vw;
@@ -1042,6 +1118,35 @@ main tr:hover {
     .doctor-nav a {
         padding: 10px 10px;
         font-size: 0.98rem;
+    }
+    .appointment-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px 8px;
+    }
+    .appointment-actions {
+        align-items: stretch;
+        margin-left: 0;
+        min-width: 0;
+    }
+    .patient-avatar {
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+}
+@media (max-width: 600px) {
+    .doctor-main-content {
+        padding: 12px 2vw 12px 2vw;
+    }
+    .doctor-dashboard-header h1 {
+        font-size: 1.2rem;
+    }
+    .appointments-list {
+        gap: 10px;
+    }
+    .appointment-item {
+        padding: 10px 4px;
     }
 }
 
@@ -1316,4 +1421,118 @@ main tr:hover {
 }
 html {
   scroll-behavior: smooth;
+}
+
+//profile
+.profile-main {
+    max-width: 800px;
+    margin: 40px auto 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(30,60,114,0.08);
+    padding: 36px 32px 32px 32px;
+}
+
+.profile-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e3c72;
+    margin-bottom: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.profile-appointments, .profile-reports {
+    margin-bottom: 36px;
+}
+
+.profile-appointments h3,
+.profile-reports h3 {
+    font-size: 1.25rem;
+    color: #357ab8;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+ .report-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ .report-list li {
+    background: #f7fafd;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(30,60,114,0.04);
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+ .appointment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: flex-start;
+}
+
+.appointment-list li {
+    background: #f7fafd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(30,60,114,0.08);
+    padding: 18px 22px;
+    min-width: 220px;
+    max-width: 300px;
+    flex: 1 1 220px;
+    font-size: 1rem;
+    color: #1e293b;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: box-shadow 0.18s, transform 0.12s;
+}
+
+.appointment-list li:hover {
+    box-shadow: 0 6px 24px rgba(30,60,114,0.13);
+    transform: translateY(-2px) scale(1.01);
+}
+
+@media (max-width: 700px) {
+    .appointment-list {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .appointment-list li {
+        max-width: 100%;
+        min-width: 0;
+    }
+}
+.report-list li strong {
+    color: #285185;
+    font-weight: 600;
+}
+
+.report-list a {
+    color: #357ab8;
+    text-decoration: underline;
+    font-weight: 500;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+@media (max-width: 600px) {
+    .profile-main {
+        padding: 16px 6px;
+    }
+    .profile-header h2 {
+        font-size: 1.3rem;
+    }
+    .profile-appointments h3,
+    .profile-reports h3 {
+        font-size: 1.08rem;
+    }
 }
