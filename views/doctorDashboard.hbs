@@ -59,6 +59,15 @@
             </form>
         </div>
         {{/if}}
+        {{#if (eq this.status "accepted")}}
+    {{#if this.videoEnabled}}
+        <a href="/video/appointment/{{this._id}}" class="submit-btn">Go to Video Call</a>
+    {{else}}
+        <form action="/doctor/appointment/{{this._id}}/enable-video" method="POST">
+            <button type="submit" class="submit-btn">Start Video Call</button>
+        </form>
+    {{/if}}
+{{/if}}
     </li>
 {{/each}}
 </ul>

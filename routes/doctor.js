@@ -25,11 +25,7 @@ router.post('/:id/review', async (req, res) => {
 
 
 // Show the book appointment form
-router.get('/:id/book', async (req, res) => {
-  const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
-  res.render('bookAppointment', { doctor });
-});
+router.get('/:id/book', doctorController.showBookForm);
 
 router.post('/:id/book', async (req, res) => {
   if (!req.user) return res.redirect('/login');
@@ -112,6 +108,11 @@ router.post('/appointment/:id/accept', isDoctor, async (req, res) => {
 // Reject appointment
 router.post('/appointment/:id/reject', isDoctor, async (req, res) => {
     await Appointment.findByIdAndUpdate(req.params.id, { status: 'rejected' });
+    res.redirect('/doctor/dashboard');
+});
+// routes/doctor.js
+router.post('/appointment/:id/enable-video', isDoctor, async (req, res) => {
+    await Appointment.findByIdAndUpdate(req.params.id, { videoEnabled: true });
     res.redirect('/doctor/dashboard');
 });
 

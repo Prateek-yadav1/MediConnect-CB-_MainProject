@@ -30,6 +30,11 @@
         {{else}}
             <span style="color:#e53935;">Rejected</span>
         {{/if}}
+     {{#if (eq this.status "accepted")}}
+    {{#if this.videoEnabled}}
+        <a href="/video/appointment/{{this._id}}" class="submit-btn">Join Video Call</a>
+    {{/if}}
+{{/if}}
     </li>
     {{/each}}
 </ul>

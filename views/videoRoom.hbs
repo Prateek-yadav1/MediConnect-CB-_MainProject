@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Call</title>
+</head>
+<body>
+    <h2>Video Call for Appointment {{appointmentId}}</h2>
+    <video id="localVideo" autoplay muted playsinline></video>
+    <video id="remoteVideo" autoplay playsinline></video>
+    <button id="endCallBtn" class="submit-btn" style="margin-top:16px;background:#e53935;">End Call</button>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script>
+        // This is a simplified example. For production, use signaling server and authentication.
+        const appointmentId = "{{appointmentId}}";
+        const userId = "{{user._id}}";
+        const peer = new Peer(userId + '-' + appointmentId);
+        let currentCall = null;
+        let localStream = null;
+
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+            localStream = stream;
+            document.getElementById('localVideo').srcObject = stream;
+
+            peer.on('call', call => {
+                currentCall = call;
+                call.answer(stream);
+                call.on('stream', remoteStream => {
+                    document.getElementById('remoteVideo').srcObject = remoteStream;
+                });
+                call.on('close', () => {
+                    document.getElementById('remoteVideo').srcObject = null;
+                });
+            });
+
+            // If doctor, call patient; if patient, wait for call
+          {{#if (eq user.role "doctor")}}
+     
+    setTimeout(() => {
+        const patientId = "{{patientId}}"; // Pass this from backend
+        const call = peer.call(patientId + '-' + appointmentId, stream);
+        currentCall = call;
+        call.on('stream', remoteStream => {
+            document.getElementById('remoteVideo').srcObject = remoteStream;
+        });
+        call.on('close', () => {
+            document.getElementById('remoteVideo').srcObject = null;
+        });
+    }, 2000);
+{{/if}}
+        });
+
+        document.getElementById('endCallBtn').onclick = async function() {
+            // Close PeerJS call
+            if (currentCall) currentCall.close();
+            // Stop local media tracks
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+                document.getElementById('localVideo').srcObject = null;
+            }
+            // Optionally, disconnect peer
+            peer.disconnect();
+
+            // If doctor, notify backend to disable videoEnabled
+            {{#if (eq user.role "doctor")}}
+            await fetch('/video/appointment/{{appointmentId}}/end', { method: 'POST' });
+            {{/if}}
+
+            alert('Call ended.');
+            window.location.href = '/doctor/dashboard'; // Or wherever you want to redirect
+        };
+    </script>
+</body>
+</html>

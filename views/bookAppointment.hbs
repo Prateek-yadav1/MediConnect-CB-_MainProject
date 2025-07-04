@@ -9,21 +9,33 @@
     {{> navbar}}
     <main class="appointment-main">
         <h2>Book Appointment with {{doctor.name}}</h2>
-        <form action="/doctor/{{doctor._id}}/book" method="POST" class="product-form">
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" name="date" id="date" required>
-            </div>
-            <div class="form-group">
-                <label for="time">Time</label>
-                <input type="time" name="time" id="time" required>
-            </div>
-            <div class="form-group">
-                <label for="reason">Reason for Visit</label>
-                <textarea name="reason" id="reason" rows="2" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Book</button>
-        </form>
+       <form action="/doctor/{{doctor._id}}/book" method="POST" class="product-form">
+    <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date" value="{{date}}" required
+            onchange="window.location.href='?date='+this.value">
+    </div>
+    <div class="form-group">
+        <label>Choose Time Slot</label>
+        <div class="slots-grid">
+            {{#each slotStatus}}
+                {{#if this.occupied}}
+                    <button type="button" class="slot-btn occupied" disabled>{{this.time}}</button>
+                {{else}}
+                    <label>
+                        <input type="radio" name="time" value="{{this.time}}" required hidden>
+                        <span class="slot-btn free">{{this.time}}</span>
+                    </label>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="reason">Reason for Visit</label>
+        <textarea name="reason" id="reason" rows="2" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Book</button>
+</form>
     </main>
 </body>
 </html>

@@ -11,6 +11,7 @@ const Doctor = require('./models/doctor');
 const session=require('express-session')//without this, passport will not be able to work
 const adminRoutes = require('./routes/admin');
 const profileRoutes = require('./routes/profile');
+const videoRoutes = require('./routes/video');
 
 
 
@@ -46,19 +47,29 @@ app.get('/',(req,res)=>{
 
 //Home page-fetch and show doctors
 app.get('/home', async (req, res) => {
-  const q = req.query.q;
-  let doctors;
-  if (q) {
-    doctors = await Doctor.find({
-      $or: [
-        { name: { $regex: q, $options: 'i' } },
-        { specialty: { $regex: q, $options: 'i' } }
-      ]
+    const { q, specialty, location, insurance, availability } = req.query;
+    let filter = {};
+
+    if (q) {
+        filter.$or = [
+            { name: new RegExp(q, 'i') },
+            { specialty: new RegExp(q, 'i') }
+        ];
+    }
+    if (specialty) filter.specialty = specialty; // This line is important!
+    if (location) filter.location = new RegExp(location, 'i');
+    if (insurance) filter.insurance = insurance;
+    // ... handle availability if needed
+
+    const doctors = await Doctor.find(filter);
+    res.render('home', {
+        doctors,
+        q,
+        specialty,
+        location,
+        insurance,
+        availability
     });
-  } else {
-    doctors = await Doctor.find({});
-  }
-  res.render('home', { doctors, q });
 });
 
 
@@ -70,6 +81,7 @@ app.use('/login',require('./routes/login'))
 app.use('/home',require('./routes/home'))
 app.use('/admin', adminRoutes);
 app.use('/profile', profileRoutes);
+app.use('/video', videoRoutes);
 
 app.get('/logout', function(req, res, next) {
   req.logout(function(err) {

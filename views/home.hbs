@@ -41,17 +41,58 @@
     </main>
     <main class="doctor-main" id="doctors">
   
-        <form class="search-bar" action="/home" method="GET">
+   <form class="search-bar" action="/home" method="GET">
     <input type="text" name="q" placeholder="Search for doctors, specialties, or conditions" value="{{q}}">
     <button type="submit"><span>Search</span></button>
 </form>
-        
-        <div class="filter-chips">
-            <button>Specialty</button>
-            <button>Location</button>
-            <button>Insurance</button>
-            <button>Availability</button>
-        </div>
+
+<!-- Filter chips/buttons below the search bar -->
+<div class="filter-chips">
+    <button type="button" onclick="toggleFilter('specialty-filter')">Specialty</button>
+    <button type="button" onclick="toggleFilter('location-filter')">Location</button>
+    <button type="button" onclick="toggleFilter('insurance-filter')">Insurance</button>
+    <button type="button" onclick="toggleFilter('availability-filter')">Availability</button>
+</div>
+
+<!-- Hidden filter dropdowns/forms -->
+<div id="specialty-filter" class="filter-dropdown" style="display:none;">
+    <form action="/home" method="GET">
+        <select name="specialty">
+            <option value="">Specialty</option>
+            <option value="Cardiologist" {{#if (eq specialty "Cardiologist")}}selected{{/if}}>Cardiologist</option>
+            <option value="Dermatologist" {{#if (eq specialty "Dermatologist")}}selected{{/if}}>Dermatologist</option>
+            <!-- Add more specialties -->
+        </select>
+        <button type="submit">Apply</button>
+    </form>
+</div>
+<div id="location-filter" class="filter-dropdown" style="display:none;">
+    <form action="/home" method="GET">
+        <input type="text" name="location" placeholder="Location" value="{{location}}">
+        <button type="submit">Apply</button>
+    </form>
+</div>
+<div id="insurance-filter" class="filter-dropdown" style="display:none;">
+    <form action="/home" method="GET">
+        <select name="insurance">
+            <option value="">Insurance</option>
+            <option value="Aetna" {{#if (eq insurance "Aetna")}}selected{{/if}}>Aetna</option>
+            <option value="Blue Cross" {{#if (eq insurance "Blue Cross")}}selected{{/if}}>Blue Cross</option>
+            <!-- Add more insurance options -->
+        </select>
+        <button type="submit">Apply</button>
+    </form>
+</div>
+<div id="availability-filter" class="filter-dropdown" style="display:none;">
+    <form action="/home" method="GET">
+        <select name="availability">
+            <option value="">Availability</option>
+            <option value="today" {{#if (eq availability "today")}}selected{{/if}}>Today</option>
+            <option value="week" {{#if (eq availability "week")}}selected{{/if}}>This Week</option>
+        </select>
+        <button type="submit">Apply</button>
+    </form>
+</div>
         
          <h2 class="section-title">DOCTORS </h2>
 <div class="doctor-list">
@@ -71,5 +112,15 @@
     <footer class="main-footer">
   <p>&copy; 2025 MediConnect. All rights reserved.</p>
 </footer>
+
+
+<script>
+function toggleFilter(id) {
+    // Hide all filter dropdowns first
+    document.querySelectorAll('.filter-dropdown').forEach(el => el.style.display = 'none');
+    // Show the selected one
+    document.getElementById(id).style.display = 'block';
+}
+</script>
 </body>
 </html>

@@ -8,7 +8,8 @@ const appointmentSchema = new mongoose.Schema({
   time: String,
   reason: String,
   createdAt: { type: Date, default: Date.now },
-  status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' }
+  status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
+videoEnabled: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);
