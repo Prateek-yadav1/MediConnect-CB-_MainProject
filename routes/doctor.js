@@ -13,7 +13,6 @@ router.get('/', doctorController.getDoctors);
 router.post('/:id/review', async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) return res.status(404).send('Doctor not found');
-  console.log(req.user.username);
   doctor.reviews.push({
     username: req.user.username,
     rating: req.body.rating,
@@ -24,7 +23,7 @@ router.post('/:id/review', async (req, res) => {
 });
 
 
-// Show the book appointment form
+//book appointment form
 router.get('/:id/book', doctorController.showBookForm);
 
 router.post('/:id/book', async (req, res) => {
@@ -42,13 +41,10 @@ router.post('/:id/book', async (req, res) => {
   res.render('doctorDetail', { doctor });
 });
 
-// Middleware to check if user is a doctor
 function isDoctor(req, res, next) {
   if (req.user && req.user.role === 'doctor') return next();
   res.redirect('/login');
 }
-
-// Doctor dashboard route
 
 router.get('/dashboard', isDoctor, doctorController.doctorDashboard);
 
@@ -63,7 +59,7 @@ router.get('/add', isAdmin, (req, res) => {
 
 router.post('/add', isAdmin, async (req, res) => {
   const { name, specialty, experience, image, about, specializations,username,password } = req.body;
-  // 1. Create doctor profile
+  //1.create doctor profile
   const doctor = await Doctor.create({
     name,
     specialty,
@@ -72,7 +68,8 @@ router.post('/add', isAdmin, async (req, res) => {
     about,
     specializations: specializations ? specializations.split(',').map(s => s.trim()) : []
   });
-  // 2. Create user for doctor login
+
+  //2.create user credential for doctor login
   await User.create({
     username,
     password,
@@ -86,7 +83,7 @@ router.post('/add', isAdmin, async (req, res) => {
 router.get('/:id', async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) return res.status(404).send('Doctor not found');
-   // Format review dates
+
   if (doctor.reviews && doctor.reviews.length) {
     doctor.reviews.forEach(review => {
       if (review.createdAt) {
@@ -99,6 +96,7 @@ router.get('/:id', async (req, res) => {
   res.render('doctorDetail', { doctor });
 });
 
+
 // Accept appointment
 router.post('/appointment/:id/accept', isDoctor, async (req, res) => {
     await Appointment.findByIdAndUpdate(req.params.id, { status: 'accepted' });
@@ -110,7 +108,7 @@ router.post('/appointment/:id/reject', isDoctor, async (req, res) => {
     await Appointment.findByIdAndUpdate(req.params.id, { status: 'rejected' });
     res.redirect('/doctor/dashboard');
 });
-// routes/doctor.js
+
 router.post('/appointment/:id/enable-video', isDoctor, async (req, res) => {
     await Appointment.findByIdAndUpdate(req.params.id, { videoEnabled: true });
     res.redirect('/doctor/dashboard');

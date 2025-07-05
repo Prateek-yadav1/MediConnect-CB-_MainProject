@@ -30,10 +30,15 @@ exports.doctorDashboard = async (req, res) => {
     // Determine which tab is active
     const tab = req.query.tab || 'upcoming';
     let appointments;
-    if (tab === 'past') appointments = past;
-    else if (tab === 'cancelled') appointments = cancelled;
-    else if (tab === 'pending') appointments = pending;
-    else appointments = upcoming;
+
+    if (tab === 'past')
+         appointments = past;
+    else if (tab === 'cancelled') 
+        appointments = cancelled;
+    else if (tab === 'pending') 
+        appointments = pending;
+    else 
+    appointments = upcoming;
 
     res.render('doctorDashboard', {
         doctor,
@@ -44,19 +49,20 @@ exports.doctorDashboard = async (req, res) => {
 
 exports.showBookForm = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
 
-  // Define slots (could also be in DB)
   const slots = [
     "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
     "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"
   ];
 
-  // Get appointments for this doctor and date (from query or today)
   const date = req.query.date || new Date().toISOString().slice(0,10);
+  //retriving all appointments for the doctor on the selected date
   const appointments = await Appointment.find({ doctor: doctor._id, date });
 
   // Mark slots as occupied/free
+  //Returns an array of objects
   const slotStatus = slots.map(time => ({
     time,
     occupied: appointments.some(app => app.time === time)

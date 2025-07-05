@@ -4,13 +4,11 @@ const Doctor = require('../models/doctor');
 const User = require('../models/user');
 const Appointment = require('../models/appointment');
 
-// Middleware to check if user is admin
 function isAdmin(req, res, next) {
   if (req.user && req.user.role === 'admin') return next();
   res.redirect('/login');
 }
 
-// Admin dashboard route
 router.get('/dashboard', isAdmin, async (req, res) => {
   const doctorCount = await Doctor.countDocuments();
   const patientCount = await User.countDocuments({ role: 'patient' });
@@ -20,13 +18,12 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   });
 });
 
-//View all doctors
+//view all doctors
 router.get('/doctors', isAdmin, async (req, res) => {
   const doctors = await Doctor.find();
   res.render('adminDoctors', { doctors });
 });
 
-// Doctor detail for admin
 router.get('/doctors/:id', isAdmin, async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) 
@@ -34,14 +31,13 @@ router.get('/doctors/:id', isAdmin, async (req, res) => {
   res.render('adminDoctorDetail', { doctor });
 });
 
-// Show edit form
+//show edit form
 router.get('/doctors/:id/edit', isAdmin, async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) return res.status(404).send('Doctor not found');
   res.render('editDoctor', { doctor });
 });
 
-// Handle edit form submission
 router.post('/doctors/:id/edit', isAdmin, async (req, res) => {
   const { name, specialty, experience, image, about, specializations } = req.body;
   await Doctor.findByIdAndUpdate(req.params.id, {

@@ -12,16 +12,28 @@ const session=require('express-session')//without this, passport will not be abl
 const adminRoutes = require('./routes/admin');
 const profileRoutes = require('./routes/profile');
 const videoRoutes = require('./routes/video');
-
-
-
 const hbs = require('hbs');
+const passport = require('passport');
+
+
+
+
 hbs.registerHelper('eq', (a, b) => a === b);
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
+hbs.registerHelper('times', function(n, block) {
+  let accum = '';
+  for(let i = 0; i < n; ++i)
+    accum += block.fn(i);
+  return accum;
+});
+hbs.registerHelper('subtract', function(a, b) {
+  return a - b;
+});
+
 
 app.set('view engine','hbs');
 app.use(express.urlencoded({extended:true}));
-const passport = require('passport');
+
 require('./auth/passport'); //make sure this sets up our strategies
 
 app.use(express.static(path.join(__dirname,'public')));
@@ -41,11 +53,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
+
 app.get('/',(req,res)=>{
     res.redirect('/login');
 })
-
-//Home page-fetch and show doctors
 app.get('/home', async (req, res) => {
     const { q, specialty, location, insurance, availability } = req.query;
     let filter = {};
@@ -56,12 +68,11 @@ app.get('/home', async (req, res) => {
             { specialty: new RegExp(q, 'i') }
         ];
     }
-    if (specialty) filter.specialty = specialty; // This line is important!
+    if (specialty) filter.specialty = specialty; 
     if (location) filter.location = new RegExp(location, 'i');
     if (insurance) filter.insurance = insurance;
-    // ... handle availability if needed
-
     const doctors = await Doctor.find(filter);
+    
     res.render('home', {
         doctors,
         q,
@@ -73,9 +84,8 @@ app.get('/home', async (req, res) => {
 });
 
 
-//Add doctor routes
-app.use('/doctor', doctorRoutes);
 
+app.use('/doctor', doctorRoutes);
 app.use('/signup',require('./routes/signup'))
 app.use('/login',require('./routes/login'))
 app.use('/home',require('./routes/home'))
@@ -90,18 +100,10 @@ app.get('/logout', function(req, res, next) {
   });
 });
 
-// Register 'times' helper
-hbs.registerHelper('times', function(n, block) {
-  let accum = '';
-  for(let i = 0; i < n; ++i)
-    accum += block.fn(i);
-  return accum;
-});
 
-// Register 'subtract' helper if you use it
-hbs.registerHelper('subtract', function(a, b) {
-  return a - b;
-});
+
+
+
 
 mongoose.connect(process.env.DB_PATH)
 .then(()=>{
@@ -111,8 +113,6 @@ app.listen(PORT,()=>{
 
 })
 
-
- 
 
 
 

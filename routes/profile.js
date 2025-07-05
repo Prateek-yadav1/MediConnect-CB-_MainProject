@@ -10,10 +10,10 @@ function isLoggedIn(req, res, next) {
 }
 
 router.get('/', isLoggedIn, async (req, res) => {
-    // Fetch previous appointments for this patient
+   //previous appointments and reports
     const appointments = await Appointment.find({ patient: req.user._id }).populate('doctor');
-    // Fetch reports for this patient
     const reports = await Report.find({ patient: req.user._id });
+    
     res.render('profile', { user: req.user, appointments, reports });
 });
 

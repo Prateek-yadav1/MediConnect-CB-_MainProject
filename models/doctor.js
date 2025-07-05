@@ -15,7 +15,7 @@ const doctorSchema = new mongoose.Schema({
   image: String,
   about: String,
   specializations: [String],
-  reviews: [reviewSchema]
+  reviews: [reviewSchema] //reviews field is an array of reviewSchema objects
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);
