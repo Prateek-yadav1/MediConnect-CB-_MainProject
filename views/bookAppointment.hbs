@@ -9,6 +9,7 @@
     {{> navbar}}
     <main class="appointment-main">
         <h2>Book Appointment with {{doctor.name}}</h2>
+        
        <form action="/doctor/{{doctor._id}}/book" method="POST" class="product-form">
     <div class="form-group">
         <label for="date">Date</label>

@@ -61,24 +61,27 @@
             <option value="">Specialty</option>
             <option value="Cardiologist" {{#if (eq specialty "Cardiologist")}}selected{{/if}}>Cardiologist</option>
             <option value="Dermatologist" {{#if (eq specialty "Dermatologist")}}selected{{/if}}>Dermatologist</option>
-            <!-- Add more specialties -->
+                <option value="Pediatrician" {{#if (eq specialty "Pediatrician")}}selected{{/if}}>Pediatrician</option>
+            <option value="Neurologist" {{#if (eq specialty "Neurologist")}}selected{{/if}}>Neurologist</option>
+            <option value="General Surgeon" {{#if (eq specialty "General Surgeon")}}selected{{/if}}>General Surgeon</option>
+            <option value="Physiatrist" {{#if (eq specialty "Physiatrist")}}selected{{/if}}>Physiatrist</option>
+            <option value="Gastroenterologist" {{#if (eq specialty "Gastroenterologist")}}selected{{/if}}>Gastroenterologist</option>
         </select>
         <button type="submit">Apply</button>
     </form>
 </div>
+
 <div id="location-filter" class="filter-dropdown" style="display:none;">
     <form action="/home" method="GET">
         <input type="text" name="location" placeholder="Location" value="{{location}}">
         <button type="submit">Apply</button>
     </form>
 </div>
+
 <div id="insurance-filter" class="filter-dropdown" style="display:none;">
     <form action="/home" method="GET">
         <select name="insurance">
-            <option value="">Insurance</option>
-            <option value="Aetna" {{#if (eq insurance "Aetna")}}selected{{/if}}>Aetna</option>
-            <option value="Blue Cross" {{#if (eq insurance "Blue Cross")}}selected{{/if}}>Blue Cross</option>
-            <!-- Add more insurance options -->
+            <option value="">Comming Soon</option>
         </select>
         <button type="submit">Apply</button>
     </form>
@@ -114,12 +117,20 @@
 </footer>
 
 
+
 <script>
 function toggleFilter(id) {
-    // Hide all filter dropdowns first
-    document.querySelectorAll('.filter-dropdown').forEach(el => el.style.display = 'none');
-    // Show the selected one
-    document.getElementById(id).style.display = 'block';
+    // Hide all filter dropdowns except the one clicked
+    document.querySelectorAll('.filter-dropdown').forEach(el => {
+        if (el.id !== id) el.style.display = 'none';
+    });
+    // Toggle the clicked filter
+    const filter = document.getElementById(id);
+    if (filter.style.display === 'block') {
+        filter.style.display = 'none';
+    } else {
+        filter.style.display = 'block';
+    }
 }
 </script>
 </body>

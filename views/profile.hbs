@@ -43,22 +43,32 @@
             {{/if}}
         </section>
 
-        <section class="profile-reports">
-            <h3>Medical Reports</h3>
-            {{#if reports.length}}
-            <ul class="report-list">
-                {{#each reports}}
-                <li>
-                    <strong>Title:</strong> {{this.title}}<br>
-                    <strong>Date:</strong> {{this.date}}<br>
-                    <a href="{{this.fileUrl}}" target="_blank">View Report</a>
-                </li>
-                {{/each}}
-            </ul>
-            {{else}}
-            <p>No medical reports uploaded yet.</p>
-            {{/if}}
-        </section>
+       <section class="profile-reports">
+    <h3>Medical Reports</h3>
+    <form action="/profile/upload-report" method="POST" enctype="multipart/form-data" class="report-upload-form">
+        <input type="text" name="title" placeholder="Report Title" required>
+        <input type="date" name="date" required>
+        <input type="file" name="reportFile" accept=".pdf,.jpg,.jpeg,.png" required>
+        <button type="submit" class="submit-btn">Upload Report</button>
+    </form>
+    {{#if reports.length}}
+   <ul class="report-list">
+    {{#each reports}}
+    <li>
+        <strong>Title:</strong> {{this.title}}<br>
+        <strong>Date:</strong> {{this.date}}<br>
+        <a href="{{this.fileUrl}}" target="_blank">View Report</a>
+        <form action="/profile/delete-report" method="POST" style="display:inline;" class="delete-report-form">
+            <input type="hidden" name="fileUrl" value="{{this.fileUrl}}">
+            <button type="submit" class="rbtn" onclick="return confirm('Are you sure you want to remove this report?');">Remove</button>
+        </form>
+    </li>
+    {{/each}}
+</ul>
+    {{else}}
+    <p>No medical reports uploaded yet.</p>
+    {{/if}}
+</section>
         
     </main>
 </body>

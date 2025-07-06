@@ -8,7 +8,14 @@ const userSchema=new Schema({
     role: { type: String, enum: ['doctor', 'patient'], required: true },
     doctorProfile: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
     googleId:String,
-    googleAccessToken:String
+    googleAccessToken:String,
+    reports: [
+  {
+    title: String,
+    date: String,
+    fileUrl: String
+  }
+]
 })
 
 module.exports=mongoose.model('User',userSchema);
