@@ -1691,3 +1691,18 @@ input[type="radio"][name="time"] {
         padding: 12px 8px;
     }
 }
+#endCallBtn {
+    background: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+#endCallBtn:hover {
+    background: #b71c1c;
+    transform: scale(1.05);
+}

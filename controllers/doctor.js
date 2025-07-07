@@ -27,7 +27,7 @@ exports.doctorDashboard = async (req, res) => {
         app.status === 'pending'
     );
 
-    // Determine which tab is active
+    //identifying which tab is active
     const tab = req.query.tab || 'upcoming';
     let appointments;
 

@@ -5,7 +5,16 @@ const Appointment = require('../models/appointment');
 
 
 router.get('/appointment/:id', async (req, res) => {
-    res.render('videoRoom', { appointmentId: req.params.id, user: req.user });
+    const appointment = await Appointment.findById(req.params.id)
+        .populate('patient')
+        .populate('doctor');
+    res.render('videoRoom', { 
+        appointmentId: req.params.id, 
+        user: req.user, 
+        patientId: appointment.patient._id,
+        patientName: appointment.patient.username,
+        doctorName: appointment.doctor.name
+    });
 });
 
 router.post('/appointment/:id/end', async (req, res) => {
