@@ -9,13 +9,13 @@ module.exports.getSignup = (req,res)=>{
 }
 
 module.exports.postSignup = async (req,res,next)=>{
-    const {username,password,role}=req.body;
+    const {email, username,password,role}=req.body;
 try{
-    let user= await Users.findOne({username})
+    let user= await Users.findOne({email})
     if(!user){
         try{
-            user= await Users.create({username,password,role});
-             req.session.username=username;
+            user= await Users.create({email,username,password,role});
+             req.session.email=email;
 
 req.flash('msg','You have successfully signed up');
    return res.redirect('/login');

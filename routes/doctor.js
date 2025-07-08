@@ -58,7 +58,7 @@ router.get('/add', isAdmin, (req, res) => {
 });
 
 router.post('/add', isAdmin, async (req, res) => {
-  const { name, specialty, experience, image, about, specializations,username,password } = req.body;
+  const { name, specialty, experience, image, about, specializations,username,email,password } = req.body;
   //1.create doctor profile
   const doctor = await Doctor.create({
     name,
@@ -72,6 +72,7 @@ router.post('/add', isAdmin, async (req, res) => {
   //2.create user credential for doctor login
   await User.create({
     username,
+    email,
     password,
     role: 'doctor',
     doctorProfile: doctor._id

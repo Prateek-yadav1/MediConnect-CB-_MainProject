@@ -1,19 +1,21 @@
-// I eill create all the strategies in this file
+// I will create all the strategies in this file
 //the strategies like : local,facebook,google etc
 
 const passport=require('passport');
 const LocalStrategy=require('passport-local');
 const User=require('../models/user');
+const user = require('../models/user');
 const GoogleStrategy=require('passport-google-oauth20').Strategy;
 
 //for local strategies
 
 passport.use(new LocalStrategy(
-  async function(username, password, done) {
+  { usernameField: 'email' },
+  async function(email, password, done) {
     try {
-      let user = await User.findOne({ username: username });
+      let user = await User.findOne({ email: email });
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect email.' });
       }
       if (user.password !== password) {
         return done(null, false, { message: 'Incorrect password.' });

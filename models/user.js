@@ -3,7 +3,8 @@ const {Schema}=mongoose;
 
 
 const userSchema=new Schema({
-    username:String,
+      email: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
     password:String,
     role: { type: String, enum: ['doctor', 'patient'], required: true },
     doctorProfile: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },

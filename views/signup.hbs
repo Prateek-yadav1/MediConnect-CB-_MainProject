@@ -3,39 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>Signup - MediConnect</title>
+  <link rel="stylesheet" href="signup.css">
 </head>
 <body>
-      {{#if msg}}
-  <div>
-    <p>{{msg}}</p>
-  </div>
-  {{/if}}
-    <h1>Welcome to MediConnect</h1>
-    <form action="/signup" method="POST">
-    <h3>Create User</h3>
-    <label for="username">Username:</label>
-    <input type="text" name="username" placeholder="Enter Username" required><br>
-    <label for="password">Password:</label>
-    <input type="password" name="password" placeholder="Enter Password" required><br>
-    <label for="role">Are you a:</label>
-      <label>
-    <input type="radio" name="role" value="patient" required> Patient
-  </label>
-  <label>
-    <input type="radio" name="role" value="doctor" required> Doctor
-  </label>
-<br>
-    <button type="submit">Signup</button>
-      </form>
-      <br>
-       <div>
-        Already have an account?
-        <button>
-            <a href="/login">Login</a>
-        </button>
+    <div class="main-container">
+        <div class="doctor-section">
+            <div class="doctor-content">
+                <h2>Join MediConnect</h2>
+                <p>Start your healthcare journey with us. Whether you're a patient seeking care or a doctor providing expertise, we're here to connect you.</p>
+                <div class="medical-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">👨‍⚕️</div>
+                        <h4>For Doctors</h4>
+                        <p>Manage patients & appointments</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏥</div>
+                        <h4>For Patients</h4>
+                        <p>Access quality healthcare</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <h4>Secure Platform</h4>
+                        <p>Your privacy is our priority</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-      </div>
+        <div class="signup-section">
+            <div class="pulse-animation"></div>
+            <div class="signup-container">
+                <div class="content">
+                    <div class="medical-icon"></div>
+                    <h1>Welcome to MediConnect</h1>
+                    <h3>Create Your Account</h3>
+                    
+                    {{#if msg}}
+                    <div class="error-message">
+                        <p>{{msg}}</p>
+                    </div>
+                    {{/if}}
+                    
+                    <form action="/signup" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" placeholder="Choose a username" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Create a secure password" required>
+                        </div>
+                        
+                        <div class="role-selection">
+                            <label>I am a:</label>
+                            <div class="role-options">
+                                <div class="role-option">
+                                    <input type="radio" name="role" value="patient" id="patient" required>
+                                    <label for="patient">
+                                        <div class="role-icon">🏥</div>
+                                        <strong>Patient</strong>
+                                        <span>Seeking medical care</span>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" name="role" value="doctor" id="doctor" required>
+                                    <label for="doctor">
+                                        <div class="role-icon">👨‍⚕️</div>
+                                        <strong>Doctor</strong>
+                                        <span>Providing medical care</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="signup-btn">Create Account</button>
+                    </form>
+                    
+                    <div class="login-section">
+                        <p>Already have an account?</p>
+                        <button class="login-btn">
+                            <a href="/login">Sign In</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
