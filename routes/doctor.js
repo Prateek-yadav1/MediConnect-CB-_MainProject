@@ -48,6 +48,37 @@ function isDoctor(req, res, next) {
 
 router.get('/dashboard', isDoctor, doctorController.doctorDashboard);
 
+
+// Doctor profile page
+router.get('/dashboard/profile', isDoctor, async (req, res) => {
+      const doctor = await Doctor.findById(req.user.doctorProfile);
+    if (!doctor) {
+        req.flash('msg', 'Doctor profile not found.');
+        return res.redirect('/doctor/dashboard');
+    }
+    const totalAppointments = await Appointment.countDocuments({ doctor: doctor._id });
+    const patientsSeen = await Appointment.distinct('patient', { doctor: doctor._id, status: 'accepted' });
+    const upcomingAppointments = await Appointment.countDocuments({
+        doctor: doctor._id,
+        status: 'accepted',
+        date: { $gte: new Date() }
+    });
+    // Reviews (if you have a Review model)
+    let reviews = [];
+    try {
+        reviews = await Review.find({ doctor: doctor._id }).sort({ date: -1 }).limit(5);
+    } catch (e) {}
+    res.render('doctorProfile', {
+        doctor,
+        stats: {
+            totalAppointments,
+            patientsSeen: patientsSeen.length,
+            upcomingAppointments
+        },
+        reviews
+    });
+});
+
 function isAdmin(req, res, next) {
   if (req.user && req.user.role === 'admin') return next();
   res.redirect('/login');

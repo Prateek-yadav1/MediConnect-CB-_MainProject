@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Profile | Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="doctor-dashboard-bg">
+    {{> doctorNavbar}}
+    <div class="doctor-dashboard-container">
+        <aside class="doctor-sidebar">
+            <div class="doctor-profile">
+                <img src="{{#if doctor.image}}{{doctor.image}}{{else}}/default-doctor.png{{/if}}" alt="Doctor Avatar" class="doctor-avatar-sidebar">
+                <div class="doctor-name-sidebar">Dr. {{doctor.name}}</div>
+                <div class="doctor-specialty-sidebar">{{doctor.specialty}}</div>
+            </div>
+            <nav class="doctor-nav">
+                <a href="/doctor/dashboard/profile"><span>🏠</span> Dashboard</a>
+                <a href="/doctor/dashboard"><span>📅</span> Appointments</a>
+            </nav>
+        </aside>
+        <main class="doctor-main-content">
+            <div class="profile-header">
+                <h1>Doctor Profile</h1>
+            </div>
+            <div class="doctor-profile-main">
+                <div class="doctor-profile-card">
+                    <img src="{{#if doctor.image}}{{doctor.image}}{{else}}/default-doctor.png{{/if}}" alt="Doctor Photo" class="doctor-avatar-large">
+                    <div class="doctor-profile-info">
+                        <h2>Dr. {{doctor.name}}</h2>
+                        <p><strong>Specialty:</strong> {{doctor.specialty}}</p>
+                        <p><strong>About:</strong> {{doctor.about}}</p>
+                    </div>
+                </div>
+                <div class="doctor-profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">{{stats.totalAppointments}}</div>
+                        <div class="stat-label">Total Appointments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{stats.patientsSeen}}</div>
+                        <div class="stat-label">Patients Seen</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{stats.upcomingAppointments}}</div>
+                        <div class="stat-label">Upcoming Appointments</div>
+                    </div>
+                </div>
+                {{#if reviews.length}}
+                <div class="doctor-profile-reviews">
+                    <h3>Recent Reviews</h3>
+                    <ul>
+                        {{#each reviews}}
+                        <li>
+                            <strong>{{this.patientName}}</strong> ({{this.date}}):<br>
+                            <span>{{this.comment}}</span>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

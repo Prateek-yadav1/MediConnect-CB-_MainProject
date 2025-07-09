@@ -21,6 +21,14 @@ router.get('/', isLoggedIn, async (req, res) => {
     res.render('profile', { user: req.user, appointments,reports: req.user.reports || []});
 });
 
+router.get('/patientAppointment', isLoggedIn, async (req, res) => {
+   //previous appointments and reports
+    const appointments = await Appointment.find({ patient: req.user._id }).populate('doctor');
+    
+    res.render('patientAppointment', { user: req.user, appointments});
+});
+
+
 // Configure multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

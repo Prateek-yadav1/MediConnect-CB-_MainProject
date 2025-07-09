@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | MediConnect</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{> navbar}}
+    <main class="profile-main">
+        <section class="profile-header">
+            <h2>{{user.username}}'s Appointments</h2>
+        </section>
+        <section class="profile-appointments">
+           
+            {{#if appointments.length}}
+           <ul class="appointment-list">
+
+    {{#each appointments}}
+    <li>
+        <strong>Doctor:</strong> {{this.doctor.name}}<br>
+        <strong>Date:</strong> {{this.date}}<br>
+        <strong>Time:</strong> {{this.time}}<br>
+        <strong>Reason:</strong> {{this.reason}}<br>
+        <strong>Status:</strong>
+        {{#if (eq this.status "pending")}}
+            <span style="color:#e57300;">Pending</span>
+        {{else if (eq this.status "accepted")}}
+            <span style="color:#388e3c;">Accepted</span>
+        {{else}}
+            <span style="color:#e53935;">Rejected</span>
+        {{/if}}
+     {{#if (eq this.status "accepted")}}
+    {{#if this.videoEnabled}}
+        <a href="/video/appointment/{{this._id}}" class="submit-btn">Join Video Call</a>
+    {{/if}}
+{{/if}}
+    </li>
+    {{/each}}
+
+</ul>
+            {{else}}
+            <p>No previous appointments found.</p>
+            {{/if}}
+        </section>
+
+   
+        
+    </main>
+</body>
+</html>
