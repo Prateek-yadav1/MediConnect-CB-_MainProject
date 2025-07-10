@@ -1,12 +1,11 @@
 const path=require('path')
 const express=require('express')
 const router=express.Router();
-const signupController=require('../controllers/signup')
+const homeController=require('../controllers/home');
+const { isLoggedIn } = require('../middlewares/auth');
 
 
-router.get('/',(req,res,next)=>{
-    res.render('home');
-})
+router.get('/',homeController.getHomePage)
 
 
 

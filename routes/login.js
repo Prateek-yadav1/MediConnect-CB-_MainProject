@@ -3,21 +3,15 @@ const express=require('express')
 const router=express.Router();
 const loginController=require('../controllers/login')
 const mypassport=require('../auth/passport');
+const { isLoggedIn } = require('../middlewares/auth');  
 
 
 
 router.get('/',loginController.getLogin)
 
 router.post('/',mypassport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
-    if (req.user.role === 'doctor') {
-      res.redirect('/doctor/dashboard'); // Doctor's dashboard
-    } else if (req.user.role === 'admin') {
-      res.redirect('/admin/dashboard'); // Admin dashboard
-    } else {
-      res.redirect('/home'); 
-    }
-  })
+ loginController.postLogin);
+ 
 router.get('/google',
   mypassport.authenticate('google', { scope: ['home'] }));
 
