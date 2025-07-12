@@ -6,6 +6,9 @@ body {
     color: #222;
     min-height: 100vh;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 h1 {
     text-align: center;
@@ -106,7 +109,23 @@ nav img {
     background: black;
     box-shadow: 0 2px 8px rgba(30,60,114,0.06);
 }
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
 
+.nav-right {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+    
+}
+.logout{
+ background: #d44d18ff;
+    color: white;
+    box-shadow: 0 2px 8px rgba(42,82,152,0.13);
+}
 nav a {
     color: black;
     font-size: 1.08rem;
@@ -127,22 +146,8 @@ nav a:hover, nav a.active {
     text-decoration: none;
 }
 
-nav search {
-    margin-left: auto;
-    background: #f4f6fa;
-    color: #2a5298;
-    border-radius: 18px;
-    padding: 7px 18px;
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    border: none;
-    outline: none;
-    min-width: 160px;
-    box-shadow: 0 1px 4px rgba(30,60,114,0.06);
-    display: flex;
-    align-items: center;
-}
+
+
 
 
 
@@ -426,6 +431,8 @@ nav search {
 .product-form input[type="text"],
 .product-form input[type="number"],
 .product-form input[type="url"],
+.product-form input[type="email"],
+
 .product-form textarea {
     padding: 10px 12px;
     border: 1.5px solid #b3c6e7;
@@ -573,13 +580,26 @@ nav search {
 
 /* Admin Dashboard Styles */
 .admin-main {
+    position: relative;
     max-width: 900px;
     margin: 40px auto;
-    background: #f7fafd;
     border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(30,60,114,0.08);
+    box-shadow: 0 2px 12px rgba(30, 60, 114, 0.08);
     padding: 36px 32px 32px 32px;
+    overflow: hidden;
+    z-index: 0;
 }
+
+.admin-main::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://wallpapers.com/images/featured/medical-background-cjge7e89adg6ub8x.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.5; 
+    z-index: -1;
+}
+
 
 .admin-main h2 {
     color: #1e3c72;
@@ -826,11 +846,14 @@ main tr:hover {
 .doctor-main-content {
     flex: 1;
     padding: 48px 60px 32px 60px;
+   
 }
 .doctor-dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    
 }
 .doctor-dashboard-header h1 {
     font-size: 2rem;
@@ -852,6 +875,7 @@ main tr:hover {
     background: #d0d8e8;
 }
 .doctor-tabs {
+    
     display: flex;
     gap: 24px;
     margin: 32px 0 18px 0;
@@ -1053,7 +1077,7 @@ main tr:hover {
     font-weight: 600;
     text-decoration: none;
     border: none;
-    transition: background 0.15s;
+    transition: background 1.0s;
 }
 
 .hero-btn-primary:hover {

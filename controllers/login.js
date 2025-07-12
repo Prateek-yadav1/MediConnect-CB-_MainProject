@@ -8,9 +8,11 @@ module.exports.getLogin=(req,res)=>{
 module.exports.postLogin= function(req, res) {
     if (req.user.role === 'doctor') {
       res.redirect('/doctor/dashboard'); // Doctor's dashboard
-    } else if (req.user.role === 'admin') {
+    } 
+  else if (req.user.role === 'admin') {
       res.redirect('/admin/dashboard'); // Admin dashboard
-    } else {
+    } 
+    else {
       res.redirect('/home'); 
     }
   }

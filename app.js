@@ -59,17 +59,18 @@ app.get('/',(req,res)=>{
     res.redirect('/login');
 })
 app.get('/home', async (req, res) => {
-    const { q, specialty, location, insurance, availability } = req.query;
+    const { q, specialty, experience, insurance, availability } = req.query;
     let filter = {};
 
     if (q) {
         filter.$or = [
             { name: new RegExp(q, 'i') },
-            { specialty: new RegExp(q, 'i') }
+            { specialty: new RegExp(q, 'i') },
+            { experience: new RegExp(q, 'i') }
         ];
     }
     if (specialty) filter.specialty = specialty; 
-    if (location) filter.location = new RegExp(location, 'i');
+    if (experience) filter.experience = experience;
     if (insurance) filter.insurance = insurance;
     const doctors = await Doctor.find(filter);
     
@@ -77,7 +78,7 @@ app.get('/home', async (req, res) => {
         doctors,
         q,
         specialty,
-        location,
+        experience,
         insurance,
         availability
     });
