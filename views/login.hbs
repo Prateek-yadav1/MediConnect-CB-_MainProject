@@ -7,52 +7,52 @@
    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="main-container"> 
-        <div class="login-section">
-            <div class="pulse-animation"></div>
-            <div class="login-container">
-                <div class="content">
-                    <div class="medical-icon"></div>
-                    <h1>Welcome Back</h1>
+<div class="main-container"> 
+<div class="login-section">
+<div class="pulse-animation"></div>
+<div class="login-container">
+<div class="content">
+    <div class="medical-icon"></div>
+    <h1>Welcome Back</h1>
                     
-                    {{#if msg}}
-                    <div class="error-message">
-                        <p>{{msg}}</p>
-                    </div>
-                    {{/if}}
+    {{#if msg}}
+    <div class="error-message">
+        <p>{{msg}}</p>
+    </div>
+    {{/if}}
                     
-                    <form action="/login" method="POST">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="Enter your email" required>
-                        </div>
+    <form action="/login" method="POST">
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+    </div>
                         
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                        </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+    </div>
                         
-                        <button type="submit" class="login-btn">Sign In</button>
-                    </form>
+    <button type="submit" class="login-btn">Sign In</button>
+</form>
                     
-                    <div class="signup-section">
-                        <p>New to MediConnect?</p>
-                        <button class="signup-btn">
-                            <a href="/signup">Create Account</a>
-                        </button>
-                    </div>
+    <div class="signup-section">
+    <p>New to MediConnect?</p>
+<button class="signup-btn">
+    <a href="/signup">Create Account</a>
+</button>
+</div>
                     
-                    <div class="divider">
-                        <span>or continue with</span>
-                    </div>
+    <div class="divider">
+<span>or continue with</span>
+</div>
                     
-                    <a href="/login/google" class="google-btn">
-                        <img class="google-icon" src="https://icon2.cleanpng.com/20240216/ikb/transparent-google-logo-google-logo-with-multicolored-g-and-1710875587855.webp" alt="Google logo">
-                        Continue with Google
-                    </a>
-                </div>
-            </div>
-        </div>
+     <a href="/login/google" class="google-btn">
+    <img class="google-icon" src="https://icon2.cleanpng.com/20240216/ikb/transparent-google-logo-google-logo-with-multicolored-g-and-1710875587855.webp" alt="Google logo">
+    Continue with Google
+    </a>
+    </div>
+ </div>
+    </div>
     </div>
 </body>
 </html>

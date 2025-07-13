@@ -11,11 +11,11 @@
         <div class="doctor-detail-admin">
             <h2>Doctor Details</h2>
             
-            <img src="{{doctor.image}}" alt="{{doctor.name}}">
-            <p><strong>Name:</strong> {{doctor.name}}</p>
-            <p><strong>Specialty:</strong> {{doctor.specialty}}</p>
+        <img src="{{doctor.image}}" alt="{{doctor.name}}">
+        <p><strong>Name:</strong> {{doctor.name}}</p>
+          <p><strong>Specialty:</strong> {{doctor.specialty}}</p>
             <p><strong>Experience:</strong> {{doctor.experience}} yrs</p>
-            <p><strong>About:</strong> {{doctor.about}}</p>
+        <p><strong>About:</strong> {{doctor.about}}</p>
             <p><strong>Specializations:</strong>
                 <span class="specializations-list">
                 {{#each doctor.specializations}}<span>{{this}}</span>{{/each}}
@@ -23,7 +23,9 @@
             </p>
             <a href="/admin/doctors/{{doctor._id}}/edit" class="submit-btn" style="background:#357ab8;margin-bottom:12px;">Edit Doctor Info</a>
             <h3>Reviews</h3>
+            
            <ul>
+
   {{#each doctor.reviews}}
     <li>
       <strong>{{this.username}}</strong>: {{this.comment}} ({{this.rating}} stars)
@@ -32,8 +34,13 @@
       </form>
     </li>
   {{/each}}
+
 </ul>
         </div>
     </main>
+     <footer class="main-footer">
+  <p>&copy; 2025 MediConnect. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

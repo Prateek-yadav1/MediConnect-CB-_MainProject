@@ -8,35 +8,39 @@
 <body>
     {{> adminNavbar}}
     <main>
-        <h2>All Doctors</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Specialty</th>
-                    <th>Experience</th>
-                    <th>Details</th>
-                    <th>Actions</th>
+    <h2>All Doctors</h2>
+<table>
+    <thead>
+     <tr>
+        <th>Name</th>
+         <th>Specialty</th>
+        <th>Experience</th>
+        <th>Details</th>
+        <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody>
-                {{#each doctors}}
-                <tr>
-                    <td>{{this.name}}</td>
-                    <td>{{this.specialty}}</td>
-                    <td>{{this.experience}} yrs</td>
-                    <td>
-                        <a href="/admin/doctors/{{this._id}}" class="submit-btn">View Details</a>
-                    </td>
-                    <td>
+    </thead>
+    <tbody>
+    {{#each doctors}}
+        <tr>
+            <td>{{this.name}}</td>
+        <td>{{this.specialty}}</td>
+            <td>{{this.experience}} yrs</td>
+            <td>
+        <a href="/admin/doctors/{{this._id}}" class="submit-btn">View Details</a>
+        </td>
+        <td>
     <form action="/admin/doctors/{{this._id}}/delete" method="POST" style="display:inline;">
         <button type="submit" class="submit-btn" style="background:#e74c3c;margin-left:8px;">Remove</button>
     </form>
 </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    </tr>
+{{/each}}
+    </tbody>
+    </table>
     </main>
+     <footer class="main-footer">
+  <p>&copy; 2025 MediConnect. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

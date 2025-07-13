@@ -5,6 +5,7 @@ body {
     padding: 0;
     color: #222;
     min-height: 100vh;
+    
 }
 html {
   scroll-behavior: smooth;
@@ -122,6 +123,10 @@ nav img {
     
 }
 .logout{
+    color: black;
+    box-shadow: 0 2px 8px rgba(42,82,152,0.13);
+}
+.logout:hover{
  background: #d44d18ff;
     color: white;
     box-shadow: 0 2px 8px rgba(42,82,152,0.13);
@@ -1238,6 +1243,7 @@ main tr:hover {
     border-radius: 18px;
     box-shadow: 0 2px 12px rgba(30,60,114,0.08);
     padding: 36px 32px 32px 32px;
+
 }
 
 .profile-header h2 {

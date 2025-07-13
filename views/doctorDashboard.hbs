@@ -7,6 +7,7 @@
 </head>
 <body class="doctor-dashboard-bg">
     {{> doctorNavbar}}
+
     <div class="doctor-dashboard-container">
         <aside class="doctor-sidebar">
             <div class="doctor-profile">
@@ -20,6 +21,7 @@
             
             </nav>
         </aside>
+
         <main class="doctor-main-content">
             <div class="doctor-dashboard-header">
                 <h1>Appointments</h1>
@@ -30,8 +32,10 @@
     <a href="/doctor/dashboard?tab=cancelled" class="{{#if (eq tab 'cancelled')}}tab-active{{/if}}">Cancelled</a>
     <a href="/doctor/dashboard?tab=pending" class="{{#if (eq tab 'pending')}}tab-active{{/if}}">Pending</a>
 </div>
-            <div class="appointments-section">
-            <ul class="appointments-list">
+
+<div class="appointments-section">
+<ul class="appointments-list">
+
 {{#each appointments}}
     <li class="appointment-item">
         <img src="https://bbditm.ac.in/wp-content/uploads/2021/11/dummy-image-300x300.jpg" alt="Patient" class="patient-avatar">
@@ -47,6 +51,7 @@
                 Status: <strong>{{this.status}}</strong>
             </div>
         </div>
+
         {{#if (eq this.status "pending")}}
         <div class="appointment-actions">
             <form action="/doctor/appointment/{{this._id}}/accept" method="POST">
@@ -57,6 +62,7 @@
             </form>
         </div>
         {{/if}}
+
         {{#if (eq this.status "accepted")}}
     {{#if this.videoEnabled}}
         <a href="/video/appointment/{{this._id}}" class="submit-btn">Go to Video Call</a>
@@ -66,11 +72,17 @@
         </form>
     {{/if}}
 {{/if}}
+
     </li>
 {{/each}}
 </ul>
-            </div>
-        </main>
-    </div>
+</div>
+ </main>
+
+</div>
+ <footer class="main-footer">
+  <p>&copy; 2025 MediConnect. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

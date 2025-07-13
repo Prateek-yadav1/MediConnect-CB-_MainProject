@@ -48,18 +48,24 @@
     <div class="review-list">
         {{#each doctor.reviews}}
             <div class="review">
-                <div class="review-user">{{this.username}} <br>
+            <div class="review-user">{{this.username}} <br>
                     <span class="review-date">{{this.formattedDate}}</span>
                     </div>
-                <div class="review-stars">
-                    {{#times this.rating}}★{{/times}}
-                    {{#times (subtract 5 this.rating)}}☆{{/times}}
-                </div>
-                <div class="review-text"><i>"{{this.comment}}"</i></div>
+            <div class="review-stars">
+                {{#times this.rating}}★{{/times}}
+                {{#times (subtract 5 this.rating)}}☆{{/times}}
+            </div>
+            <div class="review-text"><i>"{{this.comment}}"</i></div>
             </div>
         {{/each}}
+
     </div>
 </section>
-    </main>
+
+</main>
+ <footer class="main-footer">
+  <p>&copy; 2025 MediConnect. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

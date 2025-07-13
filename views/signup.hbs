@@ -7,71 +7,71 @@
   <link rel="stylesheet" href="signup.css">
 </head>
 <body>
-    <div class="main-container">
-        <div class="signup-section">
-            <div class="pulse-animation"></div>
-            <div class="signup-container">
-                <div class="content">
-                    <div class="medical-icon"></div>
-                    <h1>Welcome to MediConnect</h1>
-                    <h3>Create Your Account</h3>
+<div class="main-container">
+    <div class="signup-section">
+<div class="pulse-animation"></div>
+    <div class="signup-container">
+     <div class="content">
+     <div class="medical-icon"></div>
+    <h1>Welcome to MediConnect</h1>
+<h3>Create Your Account</h3>
                     
-                    {{#if msg}}
-                    <div class="error-message">
-                        <p>{{msg}}</p>
-                    </div>
-                    {{/if}}
+    {{#if msg}}
+    <div class="error-message">
+    <p>{{msg}}</p>
+    </div>
+    {{/if}}
                     
-                    <form action="/signup" method="POST">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="Enter your email" required>
-                        </div>
+    <form action="/signup" method="POST">
+    <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+    </div>
                         
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" id="username" placeholder="Choose a username" required>
-                        </div>
+    <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" placeholder="Choose a username" required>
+    </div>
                         
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Create a secure password" required>
-                        </div>
+    <div class="form-group">
+<label for="password">Password</label>
+ <input type="password" name="password" id="password" placeholder="Create a secure password" required>
+</div>
                         
-                        <div class="role-selection">
-                            <label>I am a:</label>
-                            <div class="role-options">
-                                <div class="role-option">
-                                    <input type="radio" name="role" value="patient" id="patient" required>
-                                    <label for="patient">
-                                        <div class="role-icon">🏥</div>
-                                        <strong>Patient</strong>
-                                        <span>Seeking medical care</span>
-                                    </label>
-                                </div>
-                                <div class="role-option">
-                                    <input type="radio" name="role" value="doctor" id="doctor" required>
-                                    <label for="doctor">
-                                        <div class="role-icon">👨‍⚕️</div>
-                                        <strong>Doctor</strong>
-                                        <span>Providing medical care</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="signup-btn">Create Account</button>
-                    </form>
-                    
-                    <div class="login-section">
-                        <p>Already have an account?</p>
-                        <button class="login-btn">
-                            <a href="/login">Sign In</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div class="role-selection">
+    <label>I am a:</label>
+<div class="role-options">
+    <div class="role-option">
+    <input type="radio" name="role" value="patient" id="patient" required>
+    <label for="patient">
+    <div class="role-icon">🏥</div>
+    <strong>Patient</strong>
+    <span>Seeking medical care</span>
+</label>
+</div>
+
+<div class="role-option">
+<input type="radio" name="role" value="doctor" id="doctor" required>
+<label for="doctor">
+        <div class="role-icon">👨‍⚕️</div>
+    <strong>Doctor</strong>
+    <span>Providing medical care</span>
+    </label>
         </div>
     </div>
+    </div>
+                        
+    <button type="submit" class="signup-btn">Create Account</button>
+</form>
+    <div class="login-section">
+    <p>Already have an account?</p>
+    <button class="login-btn">
+<a href="/login">Sign In</a>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
