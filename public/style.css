@@ -589,7 +589,7 @@ nav a:hover, nav a.active {
     max-width: 900px;
     margin: 40px auto;
     border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(30, 60, 114, 0.08);
+    box-shadow: 0 8px 12px rgba(30, 60, 114, 0.5);
     padding: 36px 32px 32px 32px;
     overflow: hidden;
     z-index: 0;
@@ -611,6 +611,7 @@ nav a:hover, nav a.active {
     margin-bottom: 18px;
     font-size: 2rem;
     font-weight: 700;
+    text-shadow: 0 2px 8px rgba(30,60,114,0.3);
 }
 
 .admin-actions {

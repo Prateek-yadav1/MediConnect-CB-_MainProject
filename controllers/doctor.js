@@ -2,6 +2,8 @@ const Doctor = require('../models/doctor');
 const User = require('../models/user');
 const Appointment = require('../models/appointment');
 const moment = require('moment');
+const multer = require('multer');
+const upload = multer({ dest: 'public/reports/' });
 
 module.exports.getDoctors = async (req, res) => {
   const doctors = await Doctor.find({});
@@ -46,15 +48,17 @@ module.exports.postBookForm = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) return res.status(404).send('Doctor not found');
 
+const reportPath = req.file ? '/reports/' + req.file.filename : null;
+
   await Appointment.create({
     doctor: doctor._id,
     patient: req.user._id,
     patientName: req.user.username || req.user.name,
     date: req.body.date,
     time: req.body.time,
-    reason: req.body.reason
+    reason: req.body.reason,
+     report: reportPath // Save the report path if uploaded
   });
-
   res.render('doctorDetail', { doctor });
 };
 
