@@ -23,6 +23,12 @@
                 <textarea name="about" required>{{doctor.about}}</textarea>
                 <label>Specializations (comma separated):</label>
                 <input type="text" name="specializations" value="{{doctor.specializations}}">
+                <label>Username </label>
+  <input type="text" name="username" value="{{doctor.username}}" required>
+  <label>Email </label>
+                <input type="email" name="email" value="{{doctor.email}}" required>
+                <label>Password (for doctor login):</label>
+                <input type="password" name="password" required>
                 <button type="submit" class="submit-btn">Save Changes</button>
             </form>
         </div>

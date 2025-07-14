@@ -7,7 +7,6 @@ const PORT=process.env.PORT || 1001;
 const mongoose=require('mongoose');
 const Mongostore=require('connect-mongo');
 const doctorRoutes = require('./routes/doctor');
-const Doctor = require('./models/doctor');
 const session=require('express-session')//without this, passport will not be able to work
 const adminRoutes = require('./routes/admin');
 const profileRoutes = require('./routes/profile');
@@ -31,17 +30,18 @@ hbs.registerHelper('subtract', function(a, b) {
 });
 
 
+
 app.set('view engine','hbs');
 app.use(express.urlencoded({extended:true}));
 
-require('./auth/passport'); //make sure this sets up our strategies
+require('./auth/passport');//make sure this sets up our strategies
 
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.json());
 app.use(session({
     secret:process.env.SECRET_KEY,
-    resave:false,
-    saveUninitialized:true,
+  resave:false,
+  saveUninitialized:true,     //saves a session even if it's new and unmodified.
     cookie:{secure: false,
       maxAge: 1000 * 60 * 60 * 2
     },
@@ -58,31 +58,6 @@ app.use(flash());
 app.get('/',(req,res)=>{
     res.redirect('/login');
 })
-app.get('/home', async (req, res) => {
-    const { q, specialty, experience, insurance, availability } = req.query;
-    let filter = {};
-
-    if (q) {
-        filter.$or = [
-            { name: new RegExp(q, 'i') },
-            { specialty: new RegExp(q, 'i') },
-            { experience: new RegExp(q, 'i') }
-        ];
-    }
-    if (specialty) filter.specialty = specialty; 
-    if (experience) filter.experience = experience;
-    if (insurance) filter.insurance = insurance;
-    const doctors = await Doctor.find(filter);
-    
-    res.render('home', {
-        doctors,
-        q,
-        specialty,
-        experience,
-        insurance,
-        availability
-    });
-});
 
 
 
@@ -100,10 +75,6 @@ app.get('/logout', function(req, res, next) {
     res.redirect('/login');
   });
 });
-
-
-
-
 
 
 mongoose.connect(process.env.DB_PATH)

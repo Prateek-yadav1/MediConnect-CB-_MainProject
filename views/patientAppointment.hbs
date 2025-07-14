@@ -22,6 +22,9 @@
         <strong>Date:</strong> {{this.date}}<br>
         <strong>Time:</strong> {{this.time}}<br>
         <strong>Reason:</strong> {{this.reason}}<br>
+          {{#if report}}
+      <p><strong>Report:</strong> <a href="{{report}}" target="_blank" style="text-decoration: none; color: #357ab8;">View Document</a></p>
+    {{/if}}
         <strong>Status:</strong>
         {{#if (eq this.status "pending")}}
             <span style="color:#e57300;">Pending</span>

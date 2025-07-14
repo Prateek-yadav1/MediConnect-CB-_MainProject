@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Booked</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> navbar}}
+
+<div class="success-container">
+  <div class="checkmark"></div>
+  <p class="success-message">Appointment Booked Successfully!</p>
+  <p>Redirecting you to doctor details...</p>
+</div>
+
+
+<script>
+    setTimeout(() => {
+      window.location.href = "/doctor/{{doctor._id}}";
+    }, 3000); 
+</script>
+
+
+</body>
+</html>

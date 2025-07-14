@@ -31,14 +31,17 @@ module.exports.getDoctorEditForm = async (req, res) => {
 }
 
 module.exports.postDoctorEditForm=async (req, res) => {
-  const { name, specialty, experience, image, about, specializations } = req.body;
+  const { name, specialty, experience, image, about, specializations, username, email, password } = req.body;
   await Doctor.findByIdAndUpdate(req.params.id, {
     name,
     specialty,
     experience,
     image,
     about,
-    specializations: specializations ? specializations.split(',').map(s => s.trim()) : []
+    specializations: specializations ? specializations.split(',').map(s => s.trim()) : [],
+    username,
+    email,
+    password
   });
   res.redirect(`/admin/doctors/${req.params.id}`);
 }

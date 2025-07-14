@@ -32,14 +32,22 @@ module.exports.showBookForm = async (req, res) => {
 
   const slots = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"];
   const date = req.query.date || new Date().toISOString().slice(0, 10);
+  const today = new Date().toISOString().slice(0, 10);
   const appointments = await Appointment.find({ doctor: doctor._id, date });
 
-  const slotStatus = slots.map(time => ({
-    time,
-    occupied: appointments.some(app => app.time === time)
-  }));
+ const now = new Date();
+const isToday = date === now.toISOString().slice(0, 10);
+const currentTime = now.toTimeString().slice(0, 5);
 
-  res.render('bookAppointment', { doctor, slotStatus, date });
+const slotStatus = slots.map(time => {
+  const occupied = appointments.some(app => app.time === time);
+  const past = isToday && time <= currentTime;
+  return {
+    time,
+    occupied: occupied || past
+  };
+});
+  res.render('bookAppointment', { doctor, slotStatus, date ,today});
 };
 
 module.exports.postBookForm = async (req, res) => {
@@ -59,7 +67,7 @@ const reportPath = req.file ? '/reports/' + req.file.filename : null;
     reason: req.body.reason,
      report: reportPath // Save the report path if uploaded
   });
-  res.render('doctorDetail', { doctor });
+  res.render('appointmentSuccess', { doctor });
 };
 
 module.exports.postReview = async (req, res) => {

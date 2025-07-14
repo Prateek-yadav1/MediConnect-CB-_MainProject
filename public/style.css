@@ -972,7 +972,8 @@ main tr:hover {
     color: #357ab8;
 }
 
-/* Right-aligned button group */
+
+
 .appointment-actions {
     display: flex;
     flex-direction: row;
@@ -1589,3 +1590,52 @@ input[type="radio"][name="time"] {
     font-size: 1.05rem;
 }
 
+//appointment success
+ .success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.checkmark {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+display: inline-block;
+border: 5px solid #4CAF50;
+position: relative;
+animation: pop 0.4s ease-out;
+}
+
+.checkmark::after {
+content: '';
+position: absolute;
+left: 25px;
+top: 20%;
+width: 20px;
+height: 40px;
+border-right: 5px solid #4CAF50;
+border-bottom: 5px solid #4CAF50;
+transform: rotate(45deg);
+animation: draw 0.5s ease-out 0.3s forwards;
+opacity: 0;
+}
+
+@keyframes pop {
+0% { transform: scale(0.5); opacity: 0; }
+100% { transform: scale(1); opacity: 1; }
+    }
+
+@keyframes draw {
+to { opacity: 1; }
+}
+
+.success-message {
+font-size: 1.5rem;
+color: #4CAF50;
+margin-top: 20px;
+}
