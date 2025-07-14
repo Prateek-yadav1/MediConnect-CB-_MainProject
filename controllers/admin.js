@@ -26,7 +26,8 @@ module.exports.getDoctorById= async (req, res) => {
 
 module.exports.getDoctorEditForm = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
   res.render('editDoctor', { doctor });
 }
 

@@ -10,7 +10,7 @@ const GoogleStrategy=require('passport-google-oauth20').Strategy;
 //for local strategies
 
 passport.use(new LocalStrategy(
-  { usernameField: 'email' },
+  {usernameField: 'email'},
   async function(email, password, done) {
     try {
       let user = await User.findOne({ email: email });
@@ -26,6 +26,7 @@ passport.use(new LocalStrategy(
     }
   }
 ));
+
 //google
 
 passport.use(new GoogleStrategy({

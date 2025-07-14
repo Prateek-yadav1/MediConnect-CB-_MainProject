@@ -28,7 +28,8 @@ module.exports.doctorDashboard = async (req, res) => {
 
 module.exports.showBookForm = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
 
   const slots = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"];
   const date = req.query.date || new Date().toISOString().slice(0, 10);
@@ -51,10 +52,12 @@ const slotStatus = slots.map(time => {
 };
 
 module.exports.postBookForm = async (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user) 
+    return res.redirect('/login');
 
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
 
 const reportPath = req.file ? '/reports/' + req.file.filename : null;
 
@@ -72,7 +75,8 @@ const reportPath = req.file ? '/reports/' + req.file.filename : null;
 
 module.exports.postReview = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
 
   doctor.reviews.push({
     username: req.user.username,
@@ -145,7 +149,8 @@ module.exports.postAddDoctorForm = async (req, res) => {
 
 module.exports.getDoctorById = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) return res.status(404).send('Doctor not found');
+  if (!doctor) 
+    return res.status(404).send('Doctor not found');
 
   if (doctor.reviews && doctor.reviews.length) {
     doctor.reviews.forEach(review => {

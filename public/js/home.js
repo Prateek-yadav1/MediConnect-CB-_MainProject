@@ -2,7 +2,8 @@
 function toggleFilter(id) {
     // Hide all filter dropdowns except the one clicked
     document.querySelectorAll('.filter-dropdown').forEach(el => {
-        if (el.id !== id) el.style.display = 'none';
+        if (el.id !== id) 
+            el.style.display = 'none';
     });
     // Toggle the clicked filter
     const filter = document.getElementById(id);
