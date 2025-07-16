@@ -18,7 +18,11 @@
    <div style="position:relative; width:360px; margin:auto;">
     <video id="remoteVideo" autoplay playsinline style="width:100%; border-radius:12px;"></video>
     <span style="position:absolute; bottom:8px; left:12px; background:#357ab8; color:#fff; padding:2px 8px; border-radius:6px; font-size:0.9em;">
-        {{#if (eq user.role "doctor")}}{{patientName}}{{else}}Dr. {{doctorName}}{{/if}}
+        {{#if (eq user.role "doctor")}}
+        {{patientName}}
+        {{else}}
+        Dr. {{doctorName}}
+        {{/if}}
     </span>
     <video id="localVideo" autoplay muted playsinline style="width:120px; height:90px; position:absolute; top:12px; right:12px; border-radius:8px; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.15);"></video>
     <span style="position:absolute; top:100px; right:18px; background:#222c3a; color:#fff; padding:1px 6px; border-radius:6px; font-size:0.8em;">
@@ -27,7 +31,7 @@
 </div>
 
 {{#if (eq user.role "doctor")}}
-<button id="endCallBtn" class="submit-btn" style="margin-top:16px;background:#e53935;">End Call</button>
+<button id="endCallBtn" class="submit-btn" style="margin-top:16px;background:#e53935; padding:8px 12px; border:none; border-radius:4px; color:#fff; cursor:pointer;">End Call</button>
 {{/if}}
 
 

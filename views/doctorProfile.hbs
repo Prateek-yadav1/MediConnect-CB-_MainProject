@@ -48,20 +48,6 @@
 
     </div>
     </div>
-
-        {{#if reviews.length}}
-        <div class="doctor-profile-reviews">
-                    <h3>Recent Reviews</h3>
-        <ul>
-        {{#each reviews}}
-        <li>
-            <strong>{{this.patientName}}</strong> ({{this.date}}):<br>
-            <span>{{this.comment}}</span>
-        </li>
-        {{/each}}
-    </ul>
-        </div>
-        {{/if}}
         </div>
         </main>
     </div>

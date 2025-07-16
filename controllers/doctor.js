@@ -68,7 +68,7 @@ const reportPath = req.file ? '/reports/' + req.file.filename : null;
     date: req.body.date,
     time: req.body.time,
     reason: req.body.reason,
-     report: reportPath // Save the report path if uploaded
+     report: reportPath 
   });
   res.render('appointmentSuccess', { doctor });
 };
@@ -103,12 +103,6 @@ module.exports.getDoctorProfile = async (req, res) => {
     date: { $gte: new Date() }
   });
 
-  let reviews = [];
-  try {
-    const Review = require('../models/review'); // Optional, if using a separate Review model
-    reviews = await Review.find({ doctor: doctor._id }).sort({ date: -1 }).limit(5);
-  } catch (e) {}
-
   res.render('doctorProfile', {
     doctor,
     stats: {
@@ -116,7 +110,7 @@ module.exports.getDoctorProfile = async (req, res) => {
       patientsSeen: patientsSeen.length,
       upcomingAppointments
     },
-    reviews
+    reviews:[]
   });
 };
 

@@ -1,6 +1,5 @@
 const Appointment = require('../models/appointment');
 const Report = require('../models/report'); // You need to create this model
-const multer = require('multer');
 
 
 module.exports.getProfile = async (req, res) => {
@@ -12,7 +11,7 @@ const reports = await Report.find({ patient: req.user._id });
 }
 
 module.exports.getPatientAppointments =  async (req, res) => {
-   //previous appointments and reports
+   //previous appointments
 const appointments = await Appointment.find({ patient: req.user._id }).populate('doctor');
     
     res.render('patientAppointment', { user: req.user, appointments});
