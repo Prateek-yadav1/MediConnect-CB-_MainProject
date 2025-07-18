@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Added Successfully</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> navbar}}
+
+<div class="success-container">
+  <div class="checkmark"></div>
+  <p class="success-message">Doctor Added Successfully!</p>
+  <p>Redirecting you to Admin Dashboard...</p>
+</div>
+
+
+<script>
+    setTimeout(() => {
+      window.location.href = "/admin/doctors";
+    }, 3000); 
+</script>
+
+
+</body>
+</html>

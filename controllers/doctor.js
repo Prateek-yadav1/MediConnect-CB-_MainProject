@@ -78,6 +78,19 @@ module.exports.postReview = async (req, res) => {
   if (!doctor) 
     return res.status(404).send('Doctor not found');
 
+  // Check if patient has a previous accepted appointment with this doctor
+  const hasAppointment = await Appointment.exists({
+    doctor: doctor._id,
+    patient: req.user._id,
+    status: 'accepted'
+  });
+
+  if (!hasAppointment) {
+
+    req.flash('msg', 'You can only review doctors you have had appointments with.');
+    return res.redirect(`/doctor/${doctor._id}`);
+  }
+
   doctor.reviews.push({
     username: req.user.username,
     rating: req.body.rating,
@@ -87,7 +100,6 @@ module.exports.postReview = async (req, res) => {
   await doctor.save();
   res.redirect(`/doctor/${doctor._id}`);
 };
-
 module.exports.getDoctorProfile = async (req, res) => {
   const doctor = await Doctor.findById(req.user.doctorProfile);
   if (!doctor) {
@@ -138,13 +150,16 @@ module.exports.postAddDoctorForm = async (req, res) => {
     doctorProfile: doctor._id
   });
 
-  res.redirect('/admin/dashboard');
+  res.render('doctorAddSuccess', { doctor });
 };
 
 module.exports.getDoctorById = async (req, res) => {
   const doctor = await Doctor.findById(req.params.id);
   if (!doctor) 
     return res.status(404).send('Doctor not found');
+
+  // Get flash message
+  const msg = req.flash('msg')[0];
 
   if (doctor.reviews && doctor.reviews.length) {
     doctor.reviews.forEach(review => {
@@ -154,9 +169,8 @@ module.exports.getDoctorById = async (req, res) => {
     });
   }
 
-  res.render('doctorDetail', { doctor });
+  res.render('doctorDetail', { doctor, msg });
 };
-
 module.exports.acceptAppointment = async (req, res) => {
   await Appointment.findByIdAndUpdate(req.params.id, { status: 'accepted' });
   res.redirect('/doctor/dashboard');

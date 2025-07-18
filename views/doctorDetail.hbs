@@ -7,6 +7,11 @@
 </head>
 <body>
     {{> navbar}}
+      {{#if msg}}
+    <div class="error-message">
+        <p>{{msg}}</p>
+    </div>
+    {{/if}}
     <main class="doctor-detail-main">
        <section class="doctor-header">
     <img class="doctor-avatar" src="{{doctor.image}}" alt="{{doctor.name}}">
@@ -31,6 +36,7 @@
         </section>
         <section class="doctor-reviews">
     <h3>Patient Reviews</h3>
+     
     <form action="/doctor/{{doctor._id}}/review" method="POST" class="review-form">
         <label for="rating">Rating:</label>
         <select name="rating" id="rating" required>
