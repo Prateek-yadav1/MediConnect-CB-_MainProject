@@ -2,6 +2,7 @@ const Doctor = require('../models/doctor');
 const User = require('../models/user');
 const Appointment = require('../models/appointment');
 const moment = require('moment');
+const mongoose = require('mongoose');
 const multer = require('multer');
 const upload = multer({ dest: 'public/reports/' });
 
@@ -78,7 +79,6 @@ module.exports.postReview = async (req, res) => {
   if (!doctor) 
     return res.status(404).send('Doctor not found');
 
-  // Check if patient has a previous accepted appointment with this doctor
   const hasAppointment = await Appointment.exists({
     doctor: doctor._id,
     patient: req.user._id,
@@ -131,7 +131,6 @@ module.exports.getDoctorById = async (req, res) => {
   const { id } = req.params;
   console.log('Doctor ID param:', id);
   
-  // Check for reserved keywords that should not be treated as IDs
   const reservedKeywords = ['new', 'edit', 'delete', 'create'];
   if (reservedKeywords.includes(id)) {
     return res.status(400).send('Invalid route - reserved keyword');
@@ -145,7 +144,7 @@ module.exports.getDoctorById = async (req, res) => {
     const doctor = await Doctor.findById(id);
     if (!doctor) return res.status(404).send('Doctor not found');
     
-    res.render('adminDoctorDetail', { doctor });
+    res.render('doctorDetail', { doctor });
   } catch (error) {
     console.error('Database error:', error);
     return res.status(500).send('Server error');

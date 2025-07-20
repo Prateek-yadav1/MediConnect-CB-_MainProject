@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const doctorController = require('../controllers/doctor');
-const { isAdmin, isDoctor } = require('../middlewares/auth');
+const { isDoctor } = require('../middlewares/auth');
 const multer = require('multer');
 const upload = multer({ dest: 'public/reports/' });
 
 // Doctor list page
 router.get('/', doctorController.getDoctors);
+
+// Doctor detail page
+router.get('/:id', doctorController.getDoctorById);
+
 
 // Submit review
 router.post('/:id/review', doctorController.postReview);
@@ -21,8 +25,6 @@ router.get('/dashboard/profile', isDoctor, doctorController.getDoctorProfile);
 
 
 
-// Doctor detail page
-router.get('/:id', doctorController.getDoctorById);
 
 // Manage appointments
 router.post('/appointment/:id/accept', isDoctor, doctorController.acceptAppointment);
