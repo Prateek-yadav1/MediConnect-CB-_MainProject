@@ -15,6 +15,8 @@ const doctorSchema = new mongoose.Schema({
   image: String,
   about: String,
   specializations: [String],
+  email: String,        // Added email field
+  password: String, 
   reviews: [reviewSchema] //reviews field is an array of reviewSchema objects
 });
 

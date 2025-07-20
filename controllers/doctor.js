@@ -126,50 +126,30 @@ module.exports.getDoctorProfile = async (req, res) => {
   });
 };
 
-module.exports.getAddDoctorForm = (req, res) => {
-  res.render('addDoctor');
-};
-
-module.exports.postAddDoctorForm = async (req, res) => {
-  const { name, specialty, experience, image, about, specializations, username, email, password } = req.body;
-
-  const doctor = await Doctor.create({
-    name,
-    specialty,
-    experience,
-    image,
-    about,
-    specializations: specializations ? specializations.split(',').map(s => s.trim()) : []
-  });
-
-  await User.create({
-    username,
-    email,
-    password,
-    role: 'doctor',
-    doctorProfile: doctor._id
-  });
-
-  res.render('doctorAddSuccess', { doctor });
-};
 
 module.exports.getDoctorById = async (req, res) => {
-  const doctor = await Doctor.findById(req.params.id);
-  if (!doctor) 
-    return res.status(404).send('Doctor not found');
-
-  // Get flash message
-  const msg = req.flash('msg')[0];
-
-  if (doctor.reviews && doctor.reviews.length) {
-    doctor.reviews.forEach(review => {
-      review.formattedDate = review.createdAt
-        ? moment(review.createdAt).format('DD MMMM YYYY, h:mm A')
-        : '';
-    });
+  const { id } = req.params;
+  console.log('Doctor ID param:', id);
+  
+  // Check for reserved keywords that should not be treated as IDs
+  const reservedKeywords = ['new', 'edit', 'delete', 'create'];
+  if (reservedKeywords.includes(id)) {
+    return res.status(400).send('Invalid route - reserved keyword');
+  }
+  
+  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send('Invalid Doctor ID');
   }
 
-  res.render('doctorDetail', { doctor, msg });
+  try {
+    const doctor = await Doctor.findById(id);
+    if (!doctor) return res.status(404).send('Doctor not found');
+    
+    res.render('adminDoctorDetail', { doctor });
+  } catch (error) {
+    console.error('Database error:', error);
+    return res.status(500).send('Server error');
+  }
 };
 module.exports.acceptAppointment = async (req, res) => {
   await Appointment.findByIdAndUpdate(req.params.id, { status: 'accepted' });

@@ -7,21 +7,28 @@ const adminController = require('../controllers/admin');
 const { isAdmin } = require('../middlewares/auth');
 
 
+// View dashboard
+router.get('/dashboard', isAdmin, adminController.getDashboard);
 
-router.get('/dashboard', isAdmin,adminController.getDashboard );
+// View all doctors
+router.get('/doctors', isAdmin, adminController.getDoctors);
 
-//view all doctors
-router.get('/doctors', isAdmin,adminController.getDoctors );
+// Add new doctor - STATIC first!
+router.get('/add', isAdmin, adminController.getAddDoctorForm);
+router.post('/add', isAdmin, adminController.postAddDoctorForm);
 
-router.get('/doctors/:id', isAdmin,adminController.getDoctorById);
+// ✅ THIS MUST COME LAST
+router.get('/doctors/:id', isAdmin, adminController.getDoctorById);
 
-//show edit form
-router.get('/doctors/:id/edit', isAdmin,adminController.getDoctorEditForm );
+// Show edit form
+router.get('/doctors/:id/edit', isAdmin, adminController.getDoctorEditForm);
+router.post('/doctors/:id/edit', isAdmin, adminController.postDoctorEditForm);
 
-router.post('/doctors/:id/edit', isAdmin,adminController.postDoctorEditForm);
+// Delete doctor
+router.post('/doctors/:id/delete', isAdmin, adminController.postdeleteDoctor);
 
-router.post('/doctors/:id/delete', isAdmin,adminController.postdeleteDoctor);
+// Delete review
+router.post('/doctors/:doctorId/reviews/:reviewId/delete', isAdmin, adminController.postDeleteReview);
 
-router.post('/doctors/:doctorId/reviews/:reviewId/delete', isAdmin,adminController.postDeleteReview);
 
 module.exports = router;

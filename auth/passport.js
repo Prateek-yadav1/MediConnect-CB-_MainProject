@@ -6,18 +6,21 @@ const LocalStrategy=require('passport-local');
 const User=require('../models/user');
 const user = require('../models/user');
 const GoogleStrategy=require('passport-google-oauth20').Strategy;
+const bcrypt = require('bcryptjs'); // For hashing passwords
+
 
 //for local strategies
 
 passport.use(new LocalStrategy(
-  {usernameField: 'email'},
+  { usernameField: 'email' },
   async function(email, password, done) {
     try {
       let user = await User.findOne({ email: email });
       if (!user) {
         return done(null, false, { message: 'Incorrect email.' });
       }
-      if (user.password !== password) {
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);

@@ -19,9 +19,7 @@ router.post('/:id/book',upload.single('report'), doctorController.postBookForm);
 router.get('/dashboard', isDoctor, doctorController.doctorDashboard);
 router.get('/dashboard/profile', isDoctor, doctorController.getDoctorProfile);
 
-// Add new doctor
-router.get('/add', isAdmin, doctorController.getAddDoctorForm);
-router.post('/add', isAdmin, doctorController.postAddDoctorForm);
+
 
 // Doctor detail page
 router.get('/:id', doctorController.getDoctorById);
