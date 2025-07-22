@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Added</title>
+        <link rel="icon" type="image" href="https://mediconnect-hms.netlify.app/static/media/White.025447d688ac97573f81.png">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> navbar}}
+
+<div class="success-container">
+  <div class="checkmark"></div>
+  <p class="success-message">Report Added Successfully!</p>
+  <p>Redirecting you to your profile..</p>
+</div>
+
+
+<script>
+    setTimeout(() => {
+      window.location.href = "/profile";
+    }, 3000); 
+</script>
+
+
+</body>
+
+</html>

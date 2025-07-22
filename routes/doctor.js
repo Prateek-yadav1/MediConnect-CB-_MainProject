@@ -8,8 +8,6 @@ const upload = multer({ dest: 'public/reports/' });
 // Doctor list page
 router.get('/', doctorController.getDoctors);
 
-// Doctor detail page
-router.get('/:id', doctorController.getDoctorById);
 
 
 // Submit review
@@ -30,5 +28,9 @@ router.get('/dashboard/profile', isDoctor, doctorController.getDoctorProfile);
 router.post('/appointment/:id/accept', isDoctor, doctorController.acceptAppointment);
 router.post('/appointment/:id/reject', isDoctor, doctorController.rejectAppointment);
 router.post('/appointment/:id/enable-video', isDoctor, doctorController.enableVideoAppointment);
+
+// Doctor detail page
+router.get('/:id', doctorController.getDoctorById);
+
 
 module.exports = router;

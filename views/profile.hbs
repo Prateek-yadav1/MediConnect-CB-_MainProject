@@ -11,9 +11,17 @@
     {{> navbar}}
    
     <main class="profile-main">
-        <section class="profile-header">
-            <h2>{{user.username}}'s Profile</h2>
-        </section>
+     <section style="display: flex; align-items: center; gap: 20px;">
+  <img 
+    src="https://www.selectmarket.ae/wp-content/uploads/2016/05/5ed0bc59411f1356d4fdf40b_dummy-person.png" 
+    alt="Profile Picture" 
+    style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
+    
+  <div>
+    <h2>{{user.username}}'s Profile</h2>
+    <p><strong>Email:</strong> {{user.email}}</p>
+  </div>
+</section>
         <section class="profile-appointments">
             <h3>Previous Appointments</h3>
             {{#if appointments.length}}

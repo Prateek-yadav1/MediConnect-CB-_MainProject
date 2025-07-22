@@ -5,6 +5,7 @@ const Doctor = require('../models/doctor');
 const Report = require('../models/report'); // You need to create this model
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const User = require('../models/user');
 const profileController = require('../controllers/profile');
 const { isLoggedIn } = require('../middlewares/auth');
@@ -30,16 +31,28 @@ const upload = multer({ storage: storage });
 
 // Upload report route
 router.post('/upload-report', upload.single('reportFile'), async (req, res) => {
-  const { title, date } = req.body;
-  const fileUrl = '/reports/' + req.file.filename;
-
-  // Save report info to user's reports array
-  await User.findByIdAndUpdate(req.user._id, {
-    $push: {
-      reports: { title, date, fileUrl }
+  try {
+    const { title, date } = req.body;
+    if (!req.file) {
+      req.flash('msg', 'No file uploaded!');
+      return res.redirect('/profile');
     }
-  });
-  res.redirect('/profile');
+    const fileUrl = '/reports/' + req.file.filename;
+
+    // Save report info to user's reports array
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: {
+        reports: { title, date, fileUrl }
+      }
+    });
+
+    // Render the success page with a redirect script
+    res.render('reportAddSuccess');
+  } catch (err) {
+    console.error('Error uploading report:', err);
+    req.flash('msg', 'Error uploading report!');
+    res.redirect('/profile');
+  }
 });
 
 router.post('/delete-report', async (req, res) => {
