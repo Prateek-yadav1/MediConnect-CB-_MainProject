@@ -36,10 +36,10 @@
 </div>
 
 <div class="appointments-section">
-<ul class="appointments-list">
-
-{{#each appointments}}
-    <li class="appointment-item">
+  {{#if appointments.length}}
+    <ul class="appointments-list">
+      {{#each appointments}}
+        <li class="appointment-item">
         <img src="https://bbditm.ac.in/wp-content/uploads/2021/11/dummy-image-300x300.jpg" alt="Patient" class="patient-avatar">
         <div class="appointment-details">
             <div class="patient-name">
@@ -78,10 +78,18 @@
     {{/if}}
 {{/if}}
 
-    </li>
-{{/each}}
-</ul>
+     {{/each}}
+    </ul>
+  {{else}}
+    <div class="no-appointments">
+      <img src="https://static.vecteezy.com/system/resources/previews/050/732/653/non_2x/trendy-design-icon-of-schedule-error-vector.jpg" alt="No Appointments" style="width:120px;display:block;margin:24px auto 12px auto;">
+      <p style="text-align:center; color:#888; font-size:1.1rem;">
+        No {{tab}} appointments found!
+      </p>
+    </div>
+  {{/if}}
 </div>
+
  </main>
 
 </div>
