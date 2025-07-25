@@ -11,11 +11,15 @@
     {{> adminNavbar}}
     <main class="admin-main">
 <h2>Welcome, Admin</h2>
+<p style="color:#555; margin-bottom: 18px;">
+    Have a great day managing your healthcare platform!
+</p>
     <div class="admin-actions">
             <a href="/admin/add" class="submit-btn">Add New Doctor</a>
             <a href="/admin/doctors" class="submit-btn">View All Doctors</a>
         </div>
         <section class="admin-section">
+            
             <h3>Quick Stats</h3>
             <ul>
                 <li>Total Doctors: {{stats.doctorCount}}</li>
