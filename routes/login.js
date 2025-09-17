@@ -13,7 +13,7 @@ router.post('/',mypassport.authenticate('local', { failureRedirect: '/login' }),
  loginController.postLogin);
  
 router.get('/google',
-  mypassport.authenticate('google', { scope: ['home'] }));
+  mypassport.authenticate('google', { scope: ['email'] }));
 
 router.get('/auth/google/callback', 
   mypassport.authenticate('google', { failureRedirect: '/login' }),
