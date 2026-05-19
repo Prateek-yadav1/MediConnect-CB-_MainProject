@@ -34,10 +34,6 @@ module.exports.postSignup = async (req, res, next) => {
                     console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? 'Set ✓' : 'NOT SET ✗');
                     console.log('Recipient email:', email);
                     
-                    // Verify transporter connection
-                    await transporter.verify();
-                    console.log('✓ Email transporter verified successfully');
-                    
                     const baseUrl = process.env.BASE_URL || process.env.RENDER_EXTERNAL_URL || 'http://localhost:1001';
                     const mailOptions = {
                         from: `"MediConnect" <${process.env.EMAIL_USER}>`,
@@ -58,19 +54,28 @@ module.exports.postSignup = async (req, res, next) => {
                         `,
                     };
                     
-                    console.log('Attempting to send email...');
-                    const result = await transporter.sendMail(mailOptions);
-                    console.log('✓ Email sent successfully!');
-                    console.log('Message ID:', result.messageId);
-                    console.log('===== END DEBUG =====');
+                    console.log('Attempting to send email in background...');
+                    transporter.sendMail(mailOptions)
+                        .then(result => {
+                            console.log('✓ Email sent successfully!');
+                            console.log('Message ID:', result.messageId);
+                            console.log('===== END DEBUG =====');
+                        })
+                        .catch(emailError => {
+                            console.error('===== EMAIL ERROR =====');
+                            console.error('✗ Failed to send email');
+                            console.error('Error Code:', emailError.code);
+                            console.error('Error Message:', emailError.message);
+                            console.error('Full Error:', emailError);
+                            console.error('===== END ERROR =====');
+                        });
                 } catch (emailError) {
                     console.error('===== EMAIL ERROR =====');
-                    console.error('✗ Failed to send email');
+                    console.error('✗ Failed to compose email');
                     console.error('Error Code:', emailError.code);
                     console.error('Error Message:', emailError.message);
                     console.error('Full Error:', emailError);
                     console.error('===== END ERROR =====');
-                    // Continue signup even if email fails
                 }
                 
                 req.flash('msg', 'You have successfully signed up. Check your email for credentials.');
