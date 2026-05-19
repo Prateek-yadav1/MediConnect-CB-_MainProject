@@ -38,6 +38,7 @@ module.exports.postSignup = async (req, res, next) => {
                     await transporter.verify();
                     console.log('✓ Email transporter verified successfully');
                     
+                    const baseUrl = process.env.BASE_URL || process.env.RENDER_EXTERNAL_URL || 'http://localhost:1001';
                     const mailOptions = {
                         from: `"MediConnect" <${process.env.EMAIL_USER}>`,
                         to: email,
@@ -51,7 +52,7 @@ module.exports.postSignup = async (req, res, next) => {
                                 <li><strong>Password:</strong> ${password}</li>
                                 <li><strong>Role:</strong> ${role}</li>
                             </ul>
-                            <p><strong>Login URL:</strong> http://localhost:1001/login</p>
+                            <p><strong>Login URL:</strong> <a href="${baseUrl}/login">${baseUrl}/login</a></p>
                             <p>For your security, please keep your credentials safe and do not share them with anyone.</p>
                             <p>Best regards,<br>Team MediConnect</p>
                         `,
