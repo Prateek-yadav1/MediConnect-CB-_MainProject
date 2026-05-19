@@ -9,8 +9,19 @@ const { isLoggedIn } = require('../middlewares/auth');
 
 router.get('/',loginController.getLogin)
 
-router.post('/',mypassport.authenticate('local', { failureRedirect: '/login' }),
- loginController.postLogin);
+router.post('/', (req, res, next) => {
+  mypassport.authenticate('local', (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) { 
+      req.flash('msg', info.message || 'Login failed. Please check your credentials.');
+      return res.redirect('/login');
+    }
+    req.logIn(user, (err) => {
+      if (err) { return next(err); }
+      return loginController.postLogin(req, res);
+    });
+  })(req, res, next);
+});
  
 router.get('/google',
   mypassport.authenticate('google', { scope: ['email'] }));
