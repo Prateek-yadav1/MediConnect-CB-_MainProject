@@ -1,5 +1,5 @@
 const Users = require('../models/user');
-const bcrypt = require('bcryptjs'); // Changed from 'bcrypt' to 'bcryptjs' for Render compatibility
+const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 
 module.exports.getSignup = (req, res) => {
@@ -18,13 +18,17 @@ module.exports.postSignup = async (req, res, next) => {
                 user = await Users.create({ email, username, password: hashedPassword, role });
                 req.session.email = email;
 
-                // Send welcome email — awaited so Render doesn't drop it before it fires
+                // Send welcome email
                 try {
+                    console.log('EMAIL_USER:', process.env.EMAIL_USER);
+                    console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '***' : 'Not Set');
+                    console.log('BASE_URL:', process.env.BASE_URL);
+
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
                             user: process.env.EMAIL_USER,
-                            pass: process.env.EMAIL_PASS, // Must be a Gmail App Password, NOT your Gmail login password
+                            pass: process.env.EMAIL_PASS,
                         },
                     });
 
@@ -46,16 +50,13 @@ module.exports.postSignup = async (req, res, next) => {
                             <p>Use the password you chose during signup to log in. For security, do not share it with anyone.</p>
                             <p>Best regards,<br>Team MediConnect</p>
                         `,
-                        // NOTE: Plain-text password intentionally removed — it was already hashed before save,
-                        // so emailing the original var was a security leak. Users know their own password.
                     };
 
-                    // FIXED: await the sendMail call so Render doesn't kill the process before email sends
                     await transporter.sendMail(mailOptions);
                     console.log('✓ Welcome email sent to:', email);
                 } catch (emailError) {
-                    // Log but don't block signup — user was created successfully
                     console.error('✗ Failed to send welcome email:', emailError.message);
+                    console.error('✗ Full error details:', emailError);
                 }
 
                 req.flash('msg', 'You have successfully signed up!');
